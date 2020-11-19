@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -79,10 +79,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthorizedNavbar = ({newMessagesNumber, notificationsNumber}) => {
+const AuthorizedNavbar = ({ newMessagesNumber, notificationsNumber }) => {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -174,7 +174,7 @@ const AuthorizedNavbar = ({newMessagesNumber, notificationsNumber}) => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Mystik 
+            Mystik
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
