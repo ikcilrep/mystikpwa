@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthorizedNavbar from "./Components/AuthorizedNavbar";
+import Navbar from "./Components/Authorized/Navbar";
 import { useCookies } from "react-cookie";
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div>
-      <AuthorizedNavbar />
+      <Navbar />
     </div>
   );
 }
