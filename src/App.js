@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import MainPage from "./Components/MainPage";
-import LoginPage from "./Components/LoginPage";
+import AuthorizedPage from "./Components/AuthorizedPage";
+import UnauthorizedPage from "./Components/UnauthorizedPage";
 import { useCookies } from "react-cookie";
 
 const isTokenUpToDate = (user) => user.expirationDate < Date.now();
@@ -11,7 +11,7 @@ function App() {
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  return isAuthorized ? <MainPage /> : <LoginPage />;
+  return isAuthorized ? <AuthorizedPage /> : <UnauthorizedPage />;
 }
 
 export default App;

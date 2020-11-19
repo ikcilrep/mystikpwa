@@ -1,7 +1,7 @@
 import Navbar from "./Authorized/Navbar";
 import React from "react";
 
-const MainPage = () => {
+const AuthorizedPage = () => {
   return (
     <div>
       <Navbar />
@@ -9,4 +9,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default AuthorizedPage;

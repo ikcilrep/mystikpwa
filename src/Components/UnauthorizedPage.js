@@ -1,7 +1,7 @@
 import Navbar from "./Unauthorized/Navbar";
 import React from "react";
 
-const LoginPage = () => {
+const UnauthorizedPage = () => {
   return (
     <div>
       <Navbar />
@@ -9,4 +9,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default UnauthorizedPage;
