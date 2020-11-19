@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({newMessagesNumber, notificationsNumber}) => {
+const AuthorizedNavbar = ({newMessagesNumber, notificationsNumber}) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -231,4 +231,4 @@ const Navbar = ({newMessagesNumber, notificationsNumber}) => {
   );
 };
 
-export default Navbar;
+export default AuthorizedNavbar;

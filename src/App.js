@@ -1,10 +1,10 @@
 import React from "react";
-import Navbar from './Components/Navbar';
+import AuthorizedNavbar from './Components/AuthorizedNavbar';
 
 function App() {
   return (
     <div>
-      <Navbar />
+      <AuthorizedNavbar />
     </div>
   );
 }
