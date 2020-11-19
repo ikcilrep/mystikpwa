@@ -5,6 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
+import Centered from "../Helpers/Centered";
 
 const LoginForm = () => {
   const [doRememberMe, setRememberMe] = useState(true);
@@ -20,54 +21,49 @@ const LoginForm = () => {
         alignItems="center"
         justify="center"
       >
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <h1>Sign In</h1>
-        </Grid>
-        <Grid item xs={4} />
+        <Centered component={<h1>Sign In</h1>} />
+        <Centered
+          component={
+            <TextField
+              required
+              id="outlined-basic"
+              label="Nickname"
+              variant="outlined"
+            />
+          }
+        />
 
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Nickname"
-            variant="outlined"
-          />
-        </Grid>
-        <Grid item xs={4} />
+        <Centered
+          component={
+            <TextField
+              required
+              id="outlined-basic"
+              label="Password"
+              variant="outlined"
+              type="password"
+              autoComplete="current-password"
+            />
+          }
+        />
 
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            autoComplete="current-password"
-          />
-        </Grid>
-        <Grid item xs={4} />
+        <Centered
+          component={
+            <FormControlLabel
+              control={
+                <Checkbox checked={doRememberMe} onChange={handleChange} />
+              }
+              label="Remember me"
+            />
+          }
+        />
 
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <FormControlLabel
-            control={
-              <Checkbox checked={doRememberMe} onChange={handleChange} />
-            }
-            label="Remember me"
-          />
-        </Grid>
-        <Grid item xs={4} />
-
-        <Grid item xs={4} />
-        <Grid item xs={4}>
-          <IconButton variant="contained" color="primary">
-            <DoneIcon />
-          </IconButton>
-        </Grid>
-        <Grid item xs={4} />
+        <Centered
+          component={
+            <IconButton variant="contained" color="primary">
+              <DoneIcon />
+            </IconButton>
+          }
+        />
       </Grid>
     </div>
   );
