@@ -43,6 +43,9 @@ const LoginForm = ({ handleAuthorization }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
+  const isThereAValidationError = () =>
+    validateUsername(username).error || validatePassword(password).error;
+
   const handleLogIn = async () => {
     try {
       const response = await axios.post(
@@ -89,7 +92,6 @@ const LoginForm = ({ handleAuthorization }) => {
             required
             id="outlined-basic"
             label="Username"
-            variant="outlined"
             value={username}
             error={usernameValidation.error}
             onChange={onChangeUsername}
@@ -105,7 +107,6 @@ const LoginForm = ({ handleAuthorization }) => {
             required
             id="outlined-basic"
             label="Password"
-            variant="outlined"
             type="password"
             autoComplete="current-password"
             value={password}
@@ -132,6 +133,7 @@ const LoginForm = ({ handleAuthorization }) => {
             variant="contained"
             color="secondary"
             onClick={handleLogIn}
+            disabled={isThereAValidationError()}
           >
             <DoneIcon />
           </IconButton>
