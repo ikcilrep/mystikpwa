@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
-import Checkbox from "@material-ui/core/Checkbox";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import CenteredHorizontal from "../Helpers/CenteredHorizontal";
@@ -18,11 +16,6 @@ import { handleErrorMessage } from "../../Helpers/ErrorHandling";
 
 const RegisterForm = ({ setAlert }) => {
   const [isRegistered, setRegistered] = useState(false);
-
-  const [doRememberMe, setRememberMe] = useState(true);
-  const handleChange = (event) => {
-    setRememberMe(event.target.checked);
-  };
 
   const [nickname, setNickname] = useState("");
   const [nicknameValidation, setNicknameValidation] = useState({

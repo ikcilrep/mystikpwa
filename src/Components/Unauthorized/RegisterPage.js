@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Grid from "@material-ui/core/Grid";
 import RegisterForm from "./RegisterForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
