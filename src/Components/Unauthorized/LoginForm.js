@@ -9,6 +9,7 @@ import Centered from "../Helpers/Centered";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import axios from "axios";
+import { handleErrorMessage } from "../../Helpers/ErrorHandling";
 
 const LoginForm = ({ handleAuthorization }) => {
   const [doRememberMe, setRememberMe] = useState(true);
@@ -62,14 +63,7 @@ const LoginForm = ({ handleAuthorization }) => {
         doRememberMe,
       });
     } catch (err) {
-      try {
-        const message = err.response.data.message;
-        if (message) {
-          setErrorMessage(message);
-        }
-      } catch (_) {
-        setErrorMessage("There was an error, try again.");
-      }
+      handleErrorMessage(err, setErrorMessage);
     }
   };
 

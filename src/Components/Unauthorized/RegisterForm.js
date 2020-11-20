@@ -14,6 +14,7 @@ import {
 import { serverAddress } from "../../settings.json";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
+import { handleErrorMessage } from "../../Helpers/ErrorHandling";
 
 const RegisterForm = ({ setAlert }) => {
   const [isRegistered, setRegistered] = useState(false);
@@ -74,14 +75,7 @@ const RegisterForm = ({ setAlert }) => {
       setAlert("Successfully registered!");
       setRegistered(true);
     } catch (err) {
-      try {
-        const message = err.response.data.message;
-        if (message) {
-          setErrorMessage(message);
-        }
-      } catch (_) {
-        setErrorMessage("There was an error, try again.");
-      }
+      handleErrorMessage(err, setErrorMessage);
     }
   };
 
