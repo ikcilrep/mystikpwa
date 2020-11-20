@@ -13,10 +13,10 @@ const LoginForm = () => {
     setRememberMe(event.target.checked);
   };
 
-  const [nickname, setNickname] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = (nickname, password) => {};
+  const handleSignIn = (username, password) => {};
 
   const updateValue = (e, setValue) => {
     setValue(e.target.value);
@@ -37,10 +37,10 @@ const LoginForm = () => {
             <TextField
               required
               id="outlined-basic"
-              label="Nickname"
+              label="Username"
               variant="outlined"
-              value={nickname}
-              onChange={(e) => updateValue(e, setNickname)}
+              value={username}
+              onChange={(e) => updateValue(e, setUsername)}
             />
           }
         />
@@ -76,7 +76,7 @@ const LoginForm = () => {
             <IconButton
               variant="contained"
               color="primary"
-              onClick={() => handleSignIn(nickname, password)}
+              onClick={() => handleSignIn(username, password)}
             >
               <DoneIcon />
             </IconButton>
