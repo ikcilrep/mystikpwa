@@ -6,20 +6,77 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import Centered from "../Helpers/Centered";
+import { validateUsername, validatePassword } from "../../Helpers/Validation";
+import { serverAddress } from "../../settings.json";
 
-const LoginForm = () => {
+const axios = require("axios");
+
+const LoginForm = ({ setUser }) => {
   const [doRememberMe, setRememberMe] = useState(true);
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
   };
 
   const [username, setUsername] = useState("");
+  const [usernameValidation, setUsernameValidation] = useState({
+    error: false,
+    message: "",
+  });
+
   const [password, setPassword] = useState("");
+  const [passwordValidation, setPasswordValidation] = useState({
+    error: false,
+    message: "",
+  });
 
-  const handleSignIn = (username, password) => {};
+  const onChangeUsername = (e) => {
+    const username = e.target.value;
+    setUsername(username);
+    setUsernameValidation(validateUsername(username));
+  };
 
-  const updateValue = (e, setValue) => {
-    setValue(e.target.value);
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+    setPasswordValidation(validatePassword(password));
+  };
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const clearFields = () => {
+    setUsername("");
+    setPassword("");
+  };
+
+  const handleSignIn = ({ username, password }) => {
+    axios
+      .post(
+        `${serverAddress}/users/authenticate`,
+        {
+          username,
+          password,
+        },
+        { headers: { "content-type": "application/json" } }
+      )
+      .then((response) => {
+        setUser({
+          id: response.data.id,
+          token: response.data.token,
+          expirationDate: Date.parse(response.data.expirationDate),
+        });
+        setErrorMessage("");
+        clearFields();
+      })
+      .catch((err) => {
+        try {
+          const message = err.response.data.message;
+          if (message) {
+            setErrorMessage(message);
+          }
+        } catch (_) {
+          setErrorMessage("There was an error, try again.");
+        }
+      });
   };
 
   return (
@@ -33,6 +90,9 @@ const LoginForm = () => {
       >
         <Centered component={<h1>Sign In</h1>} />
         <Centered
+          component={<h3 style={{ color: "red" }}>{errorMessage}</h3>}
+        />
+        <Centered
           component={
             <TextField
               required
@@ -40,10 +100,17 @@ const LoginForm = () => {
               label="Username"
               variant="outlined"
               value={username}
-              onChange={(e) => updateValue(e, setUsername)}
+              error={usernameValidation.error}
+              onChange={onChangeUsername}
             />
           }
         />
+
+        <Centered
+        component={
+          <h4>{usernameValidation.message}</h4>
+        }/>
+
 
         <Centered
           component={
@@ -55,10 +122,16 @@ const LoginForm = () => {
               type="password"
               autoComplete="current-password"
               value={password}
-              onChange={(e) => updateValue(e, setPassword)}
+              error={passwordValidation.error}
+              onChange={onChangePassword}
             />
           }
         />
+
+        <Centered
+        component={
+          <h4>{passwordValidation.message}</h4>
+        }/>
 
         <Centered
           component={
@@ -76,7 +149,7 @@ const LoginForm = () => {
             <IconButton
               variant="contained"
               color="primary"
-              onClick={() => handleSignIn(username, password)}
+              onClick={() => handleSignIn({ username, password })}
             >
               <DoneIcon />
             </IconButton>

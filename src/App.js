@@ -6,12 +6,20 @@ import { useCookies } from "react-cookie";
 const isTokenUpToDate = (user) => user.expirationDate < Date.now();
 
 function App() {
-  const [cookies /* , setCookie */] = useCookies(["user"]);
+  const [cookies, setCookie] = useCookies(["user"]);
   const [isAuthorized /* , setAuthorized */] = useState(
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  return isAuthorized ? <AuthorizedPage /> : <UnauthorizedPage />;
+  const setUser = (user) => {
+    setCookie("user", user);
+  };
+
+  return isAuthorized ? (
+    <AuthorizedPage />
+  ) : (
+    <UnauthorizedPage setUser={setUser} />
+  );
 }
 
 export default App;

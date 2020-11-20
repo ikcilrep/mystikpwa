@@ -2,7 +2,7 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import LoginForm from "./LoginForm";
 
-const LoginPage = () => {
+const LoginPage = ({ setUser }) => {
   return (
     <div>
       <Grid
@@ -14,7 +14,7 @@ const LoginPage = () => {
         style={{ minHeight: "100vh" }}
       >
         <Grid item xs={3}>
-          <LoginForm />
+          <LoginForm setUser={setUser} />
         </Grid>
       </Grid>
     </div>
