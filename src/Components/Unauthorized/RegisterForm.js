@@ -12,10 +12,13 @@ import {
   validatePassword,
 } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
+import { Redirect } from "react-router-dom";
 
 const axios = require("axios");
 
-const RegisterForm = ({ handleAuthorization }) => {
+const RegisterForm = () => {
+  const [isRegistered, setRegistered] = useState(false);
+
   const [doRememberMe, setRememberMe] = useState(true);
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
@@ -58,12 +61,6 @@ const RegisterForm = ({ handleAuthorization }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const clearFields = () => {
-    setNickname("");
-    setUsername("");
-    setPassword("");
-  };
-
   const handleSignIn = ({ username, password }) => {
     axios
       .post(
@@ -76,7 +73,7 @@ const RegisterForm = ({ handleAuthorization }) => {
         { headers: { "content-type": "application/json" } }
       )
       .then(() => {
-        clearFields();
+        setRegistered(true);
       })
       .catch((err) => {
         try {
@@ -89,6 +86,10 @@ const RegisterForm = ({ handleAuthorization }) => {
         }
       });
   };
+
+  if (isRegistered) {
+    return <Redirect to="/authorize/login" />;
+  }
 
   return (
     <div>
