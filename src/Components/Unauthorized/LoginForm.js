@@ -130,7 +130,7 @@ const LoginForm = ({ handleAuthorization }) => {
         <CenteredHorizontally>
           <IconButton
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={handleLogIn}
           >
             <DoneIcon />

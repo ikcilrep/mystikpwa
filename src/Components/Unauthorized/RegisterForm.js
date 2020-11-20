@@ -187,7 +187,7 @@ const RegisterForm = ({ setAlert }) => {
           <IconButton
             disabled={isThereAValidationError()}
             variant="contained"
-            color="primary"
+            color="secondary"
             onClick={handleRegister}
           >
             <DoneIcon />
