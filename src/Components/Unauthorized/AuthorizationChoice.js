@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Redirect, useRouteMatch } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const AuthorizationChoice = ({ setMainPage }) => {
+const AuthorizationChoice = () => {
   const [redirectPath, setRedirectPath] = useState(null);
 
   let match = useRouteMatch();
@@ -13,12 +14,12 @@ const AuthorizationChoice = ({ setMainPage }) => {
   }
 
   const setRedirect = (redirectName) => {
-    setMainPage(false);
     setRedirectPath(`${match.path}/${redirectName}`);
   };
 
   return (
-    <div>
+    <>
+      <Navbar isMainPage={true} />
       <Grid
         container
         spacing={0}
@@ -46,7 +47,7 @@ const AuthorizationChoice = ({ setMainPage }) => {
           </Button>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 

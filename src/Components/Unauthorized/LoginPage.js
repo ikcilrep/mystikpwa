@@ -1,10 +1,12 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import LoginForm from "./LoginForm";
+import Navbar from "./Navbar";
 
 const LoginPage = ({ handleAuthorization }) => {
   return (
-    <div>
+    <>
+      <Navbar isMainPage={false} />
       <Grid
         container
         spacing={0}
@@ -17,7 +19,7 @@ const LoginPage = ({ handleAuthorization }) => {
           <LoginForm handleAuthorization={handleAuthorization} />
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 

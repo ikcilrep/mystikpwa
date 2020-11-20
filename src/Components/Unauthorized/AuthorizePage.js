@@ -1,13 +1,10 @@
-import Navbar from "./Navbar";
 import LoginPage from "./LoginPage";
-import React, { useState } from "react";
+import React from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import AuthorizationChoice from "./AuthorizationChoice";
 
 const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
   let match = useRouteMatch();
-
-  const [isMainPage, setMainPage] = useState(true);
 
   if (isAuthorized) {
     return <Redirect to="/" />;
@@ -15,7 +12,6 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
 
   return (
     <div>
-      <Navbar isMainPage={isMainPage} />
       <Switch>
         <Route path={`${match.path}/login`}>
           <LoginPage handleAuthorization={handleAuthorization} />
@@ -24,7 +20,7 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
           <h1>Register</h1>
         </Route>
         <Route path={match.path}>
-          <AuthorizationChoice setMainPage={setMainPage} />
+          <AuthorizationChoice />
         </Route>
       </Switch>
     </div>
