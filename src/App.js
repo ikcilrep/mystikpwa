@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import AuthorizedPage from "./Components/AuthorizedPage";
-import UnauthorizedPage from "./Components/UnauthorizedPage";
+import HomePage from "./Components/Authorized/HomePage";
+import AuthorizePage from "./Components/Unauthorized/AuthorizePage";
 import { useCookies } from "react-cookie";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 const isTokenUpToDate = (user) => user.expirationDate < Date.now();
 
@@ -20,10 +21,19 @@ function App() {
     }
   };
 
-  return isAuthorized ? (
-    <AuthorizedPage />
-  ) : (
-    <UnauthorizedPage handleAuthorization={handleAuthorization} />
+  return (
+    <Router>
+      <div>
+        <Switch>
+          <Route path="/authorize">
+            <AuthorizePage handleAuthorization={handleAuthorization} />
+          </Route>
+          <Route path="/">
+            <HomePage isAuthorized={isAuthorized} />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -91,7 +91,7 @@ const LoginForm = ({ handleAuthorization }) => {
         alignItems="center"
         justify="center"
       >
-        <Centered component={<h1>Sign In</h1>} />
+        <Centered component={<h1>Log In</h1>} />
         <Centered
           component={<h3 style={{ color: "red" }}>{errorMessage}</h3>}
         />
