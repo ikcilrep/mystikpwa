@@ -120,7 +120,6 @@ const RegisterForm = ({ setAlert }) => {
             required
             id="outlined-basic"
             label="Nickname"
-            variant="outlined"
             value={nickname}
             error={nicknameValidation.error}
             onChange={onChangeNickname}
@@ -136,7 +135,6 @@ const RegisterForm = ({ setAlert }) => {
             required
             id="outlined-basic"
             label="Username"
-            variant="outlined"
             value={username}
             error={usernameValidation.error}
             onChange={onChangeUsername}
@@ -152,7 +150,6 @@ const RegisterForm = ({ setAlert }) => {
             required
             id="outlined-basic"
             label="Password"
-            variant="outlined"
             type="password"
             autoComplete="current-password"
             value={password}
@@ -170,7 +167,6 @@ const RegisterForm = ({ setAlert }) => {
             required
             id="outlined-basic"
             label="Repeat password"
-            variant="outlined"
             type="password"
             autoComplete="current-password"
             value={repeatedPassword}
