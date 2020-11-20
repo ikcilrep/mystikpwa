@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import RegisterForm from "./RegisterForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
+import CenteredVertical from "../Helpers/CenteredVertical";
 
 const RegisterPage = ({ setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
@@ -15,18 +16,9 @@ const RegisterPage = ({ setAlert }) => {
   return (
     <>
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh" }}
-      >
-        <Grid item xs={3}>
-          <RegisterForm setAlert={setAlert} />
-        </Grid>
-      </Grid>
+      <CenteredVertical
+        component={<RegisterForm setAlert={setAlert} />}
+      />
     </>
   );
 };

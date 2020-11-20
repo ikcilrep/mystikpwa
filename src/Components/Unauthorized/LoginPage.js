@@ -5,6 +5,7 @@ import LoginForm from "./LoginForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
+import CenteredVertical from "../Helpers/CenteredVertical";
 
 const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
@@ -20,18 +21,9 @@ const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
       <CollapsingAlert text={alert} onClose={() => setAlert("")} />
 
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "100vh" }}
-      >
-        <Grid item xs={3}>
-          <LoginForm handleAuthorization={handleAuthorization} />
-        </Grid>
-      </Grid>
+      <CenteredVertical
+        component={<LoginForm handleAuthorization={handleAuthorization} />}
+      />
     </>
   );
 };
