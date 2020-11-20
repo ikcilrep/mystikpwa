@@ -3,14 +3,19 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { Redirect, useRouteMatch } from "react-router-dom";
 
-const AuthorizationChoice = () => {
-  const [redirect, setRedirect] = useState(null);
+const AuthorizationChoice = ({ setMainPage }) => {
+  const [redirectPath, setRedirectPath] = useState(null);
 
   let match = useRouteMatch();
 
-  if (redirect !== null) {
-    return <Redirect to={redirect} />;
+  if (redirectPath !== null) {
+    return <Redirect to={redirectPath} />;
   }
+
+  const setRedirect = (redirectName) => {
+    setMainPage(false);
+    setRedirectPath(`${match.path}/${redirectName}`);
+  };
 
   return (
     <div>
@@ -27,17 +32,17 @@ const AuthorizationChoice = () => {
             variant="contained"
             color="secondary"
             size="large"
-            onClick={() => setRedirect(`${match.path}/login`)}
+            onClick={() => setRedirect("login")}
           >
-              Log In
+            Log In
           </Button>
           <Button
             variant="contained"
             color="secondary"
             size="large"
-            onClick={() => setRedirect(`${match.path}/register`)}
+            onClick={() => setRedirect("register")}
           >
-           Register 
+            Register
           </Button>
         </Grid>
       </Grid>
