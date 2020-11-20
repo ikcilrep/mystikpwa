@@ -16,7 +16,7 @@ import { Redirect } from "react-router-dom";
 
 const axios = require("axios");
 
-const RegisterForm = () => {
+const RegisterForm = ({setAlert}) => {
   const [isRegistered, setRegistered] = useState(false);
 
   const [doRememberMe, setRememberMe] = useState(true);
@@ -73,9 +73,11 @@ const RegisterForm = () => {
         { headers: { "content-type": "application/json" } }
       )
       .then(() => {
+        setAlert("Successfully registered!");
         setRegistered(true);
       })
       .catch((err) => {
+        console.log(err);
         try {
           const message = err.response.data.message;
           if (message) {

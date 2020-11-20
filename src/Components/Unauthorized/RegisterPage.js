@@ -4,7 +4,7 @@ import RegisterForm from "./RegisterForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 
-const RegisterPage = () => {
+const RegisterPage = ({ setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
   if (isRedirectBack) {
     return <Redirect to="/authorize" />;
@@ -24,7 +24,7 @@ const RegisterPage = () => {
         style={{ minHeight: "100vh" }}
       >
         <Grid item xs={3}>
-          <RegisterForm />
+          <RegisterForm setAlert={setAlert} />
         </Grid>
       </Grid>
     </>

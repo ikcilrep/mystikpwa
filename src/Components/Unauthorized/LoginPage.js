@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import Grid from "@material-ui/core/Grid";
+
 import LoginForm from "./LoginForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
+import CollapsingAlert from "../Helpers/CollapsingAlert";
 
-const LoginPage = ({ handleAuthorization }) => {
+const LoginPage = ({ handleAuthorization, alert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
+
   if (isRedirectBack) {
     return <Redirect to="/authorize" />;
   }
@@ -15,6 +18,8 @@ const LoginPage = ({ handleAuthorization }) => {
   return (
     <>
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
+      <CollapsingAlert text={alert} />
+
       <Grid
         container
         spacing={0}
