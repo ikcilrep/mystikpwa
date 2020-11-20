@@ -2,11 +2,11 @@ import Navbar from "./Unauthorized/Navbar";
 import LoginPage from "./Unauthorized/LoginPage";
 import React from "react";
 
-const UnauthorizedPage = ({ setUser }) => {
+const UnauthorizedPage = ({ handleAuthorization }) => {
   return (
     <div>
       <Navbar />
-      <LoginPage setUser={setUser} />
+      <LoginPage handleAuthorization={handleAuthorization} />
     </div>
   );
 };

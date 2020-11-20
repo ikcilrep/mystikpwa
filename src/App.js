@@ -11,14 +11,19 @@ function App() {
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  const setUser = (user) => {
-    setCookie("user", user);
+  const [user, setUser] = useState(undefined);
+
+  const handleAuthorization = ({ user, doRememberMe }) => {
+    setUser(user);
+    if (doRememberMe) {
+      setCookie("user", user);
+    }
   };
 
   return isAuthorized ? (
     <AuthorizedPage />
   ) : (
-    <UnauthorizedPage setUser={setUser} />
+    <UnauthorizedPage handleAuthorization={handleAuthorization} />
   );
 }
 

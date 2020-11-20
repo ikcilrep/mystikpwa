@@ -11,7 +11,7 @@ import { serverAddress } from "../../settings.json";
 
 const axios = require("axios");
 
-const LoginForm = ({ setUser }) => {
+const LoginForm = ({ handleAuthorization }) => {
   const [doRememberMe, setRememberMe] = useState(true);
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
@@ -59,10 +59,13 @@ const LoginForm = ({ setUser }) => {
         { headers: { "content-type": "application/json" } }
       )
       .then((response) => {
-        setUser({
-          id: response.data.id,
-          token: response.data.token,
-          expirationDate: Date.parse(response.data.expirationDate),
+        handleAuthorization({
+          user: {
+            id: response.data.id,
+            token: response.data.token,
+            expirationDate: Date.parse(response.data.expirationDate),
+          },
+          doRememberMe,
         });
         setErrorMessage("");
         clearFields();
@@ -106,11 +109,7 @@ const LoginForm = ({ setUser }) => {
           }
         />
 
-        <Centered
-        component={
-          <h4>{usernameValidation.message}</h4>
-        }/>
-
+        <Centered component={<h4>{usernameValidation.message}</h4>} />
 
         <Centered
           component={
@@ -128,10 +127,7 @@ const LoginForm = ({ setUser }) => {
           }
         />
 
-        <Centered
-        component={
-          <h4>{passwordValidation.message}</h4>
-        }/>
+        <Centered component={<h4>{passwordValidation.message}</h4>} />
 
         <Centered
           component={
