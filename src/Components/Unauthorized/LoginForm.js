@@ -5,7 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import Centered from "../Helpers/Centered";
+import CenteredHorizontal from "../Helpers/CenteredHorizontal";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import axios from "axios";
@@ -76,11 +76,11 @@ const LoginForm = ({ handleAuthorization }) => {
         alignItems="center"
         justify="center"
       >
-        <Centered component={<h1>Log In</h1>} />
-        <Centered
+        <CenteredHorizontal component={<h1>Log In</h1>} />
+        <CenteredHorizontal
           component={<h3 style={{ color: "red" }}>{errorMessage}</h3>}
         />
-        <Centered
+        <CenteredHorizontal
           component={
             <TextField
               required
@@ -94,9 +94,9 @@ const LoginForm = ({ handleAuthorization }) => {
           }
         />
 
-        <Centered component={<h4>{usernameValidation.message}</h4>} />
+        <CenteredHorizontal component={<h4>{usernameValidation.message}</h4>} />
 
-        <Centered
+        <CenteredHorizontal
           component={
             <TextField
               required
@@ -112,9 +112,9 @@ const LoginForm = ({ handleAuthorization }) => {
           }
         />
 
-        <Centered component={<h4>{passwordValidation.message}</h4>} />
+        <CenteredHorizontal component={<h4>{passwordValidation.message}</h4>} />
 
-        <Centered
+        <CenteredHorizontal
           component={
             <FormControlLabel
               control={
@@ -125,7 +125,7 @@ const LoginForm = ({ handleAuthorization }) => {
           }
         />
 
-        <Centered
+        <CenteredHorizontal
           component={
             <IconButton
               variant="contained"
