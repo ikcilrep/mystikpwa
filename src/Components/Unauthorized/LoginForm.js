@@ -12,6 +12,16 @@ const LoginForm = () => {
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
   };
+
+  const [nickname, setNickname] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSignIn = (nickname, password) => {};
+
+  const updateValue = (e, setValue) => {
+    setValue(e.target.value);
+  };
+
   return (
     <div>
       <Grid
@@ -29,6 +39,8 @@ const LoginForm = () => {
               id="outlined-basic"
               label="Nickname"
               variant="outlined"
+              value={nickname}
+              onChange={(e) => updateValue(e, setNickname)}
             />
           }
         />
@@ -42,6 +54,8 @@ const LoginForm = () => {
               variant="outlined"
               type="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(e) => updateValue(e, setPassword)}
             />
           }
         />
@@ -59,7 +73,11 @@ const LoginForm = () => {
 
         <Centered
           component={
-            <IconButton variant="contained" color="primary">
+            <IconButton
+              variant="contained"
+              color="primary"
+              onClick={() => handleSignIn(nickname, password)}
+            >
               <DoneIcon />
             </IconButton>
           }
