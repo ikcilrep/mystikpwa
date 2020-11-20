@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import RegisterForm from "./RegisterForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
-import CenteredVertically from "../Helpers/CenteredVertically";
 
 const RegisterPage = ({ setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
@@ -15,9 +14,9 @@ const RegisterPage = ({ setAlert }) => {
   return (
     <>
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
-      <CenteredVertically>
+      <center>
         <RegisterForm setAlert={setAlert} />
-      </CenteredVertically>
+      </center>
     </>
   );
 };

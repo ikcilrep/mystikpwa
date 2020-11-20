@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import CenteredHorizontally from "../Helpers/CenteredHorizontally";
 import {
   validateUsername,
   validateNickname,
@@ -100,96 +98,66 @@ const RegisterForm = ({ setAlert }) => {
 
   return (
     <div>
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        alignItems="center"
-        justify="center"
+      <h1>Register</h1>
+
+      <h3 style={{ color: "red" }}>{errorMessage}</h3>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Nickname"
+        value={nickname}
+        error={nicknameValidation.error}
+        onChange={onChangeNickname}
+      />
+
+      <h4>{nicknameValidation.message}</h4>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Username"
+        value={username}
+        error={usernameValidation.error}
+        onChange={onChangeUsername}
+      />
+
+      <h4>{usernameValidation.message}</h4>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+        value={password}
+        error={passwordValidation.error}
+        onChange={onChangePassword}
+      />
+
+      <h4>{passwordValidation.message}</h4>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Repeat password"
+        type="password"
+        autoComplete="current-password"
+        value={repeatedPassword}
+        error={repeatedPasswordValidation.error}
+        onChange={onChangeRepeatedPassword}
+      />
+
+      <h4>{repeatedPasswordValidation.message}</h4>
+
+      <IconButton
+        disabled={isThereAValidationError()}
+        variant="contained"
+        color="secondary"
+        onClick={handleRegister}
       >
-        <CenteredHorizontally>
-          <h1>Register</h1>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h3 style={{ color: "red" }}>{errorMessage}</h3>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Nickname"
-            value={nickname}
-            error={nicknameValidation.error}
-            onChange={onChangeNickname}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{nicknameValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Username"
-            value={username}
-            error={usernameValidation.error}
-            onChange={onChangeUsername}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{usernameValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            error={passwordValidation.error}
-            onChange={onChangePassword}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{passwordValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Repeat password"
-            type="password"
-            autoComplete="current-password"
-            value={repeatedPassword}
-            error={repeatedPasswordValidation.error}
-            onChange={onChangeRepeatedPassword}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{repeatedPasswordValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <IconButton
-            disabled={isThereAValidationError()}
-            variant="contained"
-            color="secondary"
-            onClick={handleRegister}
-          >
-            <DoneIcon />
-          </IconButton>
-        </CenteredHorizontally>
-      </Grid>
+        <DoneIcon />
+      </IconButton>
     </div>
   );
 };

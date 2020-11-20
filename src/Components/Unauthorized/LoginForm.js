@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import CenteredHorizontally from "../Helpers/CenteredHorizontally";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import axios from "axios";
@@ -72,73 +70,47 @@ const LoginForm = ({ handleAuthorization }) => {
 
   return (
     <div>
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        alignItems="center"
-        justify="center"
+      <h1>Log In</h1>
+
+      <h3 style={{ color: "red" }}>{errorMessage}</h3>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Username"
+        value={username}
+        error={usernameValidation.error}
+        onChange={onChangeUsername}
+      />
+
+      <h4>{usernameValidation.message}</h4>
+
+      <TextField
+        required
+        id="outlined-basic"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+        value={password}
+        error={passwordValidation.error}
+        onChange={onChangePassword}
+      />
+
+      <h4>{passwordValidation.message}</h4>
+
+      <FormControlLabel
+        control={<Checkbox checked={doRememberMe} onChange={handleChange} />}
+        label="Remember me"
+      />
+
+      <IconButton
+        variant="contained"
+        color="secondary"
+        onClick={handleLogIn}
+        disabled={isThereAValidationError()}
       >
-        <CenteredHorizontally>
-          <h1>Log In</h1>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h3 style={{ color: "red" }}>{errorMessage}</h3>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Username"
-            value={username}
-            error={usernameValidation.error}
-            onChange={onChangeUsername}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{usernameValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <TextField
-            required
-            id="outlined-basic"
-            label="Password"
-            type="password"
-            autoComplete="current-password"
-            value={password}
-            error={passwordValidation.error}
-            onChange={onChangePassword}
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <h4>{passwordValidation.message}</h4>
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <FormControlLabel
-            control={
-              <Checkbox checked={doRememberMe} onChange={handleChange} />
-            }
-            label="Remember me"
-          />
-        </CenteredHorizontally>
-
-        <CenteredHorizontally>
-          <IconButton
-            variant="contained"
-            color="secondary"
-            onClick={handleLogIn}
-            disabled={isThereAValidationError()}
-          >
-            <DoneIcon />
-          </IconButton>
-        </CenteredHorizontally>
-      </Grid>
+        <DoneIcon />
+      </IconButton>
     </div>
   );
 };
