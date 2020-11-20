@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import HomePage from "./Components/Authorized/HomePage";
 import AuthorizePage from "./Components/Unauthorized/AuthorizePage";
 import { useCookies } from "react-cookie";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const isTokenUpToDate = (user) => user.expirationDate < Date.now();
 
@@ -12,7 +12,7 @@ function App() {
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  const [user, setUser] = useState(undefined);
+  const [user,  setUser] = useState(undefined);
 
   const handleAuthorization = ({ user, doRememberMe }) => {
     setUser(user);
