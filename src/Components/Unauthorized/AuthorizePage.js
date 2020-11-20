@@ -1,4 +1,5 @@
 import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 import React from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import AuthorizationChoice from "./AuthorizationChoice";
@@ -17,7 +18,7 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
           <LoginPage handleAuthorization={handleAuthorization} />
         </Route>
         <Route path={`${match.path}/register`}>
-          <h1>Register</h1>
+          <RegisterPage />
         </Route>
         <Route path={match.path}>
           <AuthorizationChoice />
