@@ -8,6 +8,7 @@ import {
   validateUsername,
   validateNickname,
   validatePassword,
+  validateRepeatedPassword,
 } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import { Redirect } from "react-router-dom";
@@ -34,6 +35,13 @@ const RegisterForm = ({ setAlert }) => {
     error: false,
     message: "",
   });
+
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [repeatedPasswordValidation, setRepeatedPasswordValidation] = useState({
+    error: false,
+    message: "",
+  });
+
   const onChangeNickname = (e) => {
     const nickname = e.target.value;
     setNickname(nickname);
@@ -51,6 +59,20 @@ const RegisterForm = ({ setAlert }) => {
     setPassword(password);
     setPasswordValidation(validatePassword(password));
   };
+
+  const onChangeRepeatedPassword = (e) => {
+    const repeatedPassword = e.target.value;
+    setRepeatedPassword(repeatedPassword);
+    setRepeatedPasswordValidation(
+      validateRepeatedPassword(password, repeatedPassword)
+    );
+  };
+
+  const isThereAValidationError = () =>
+    validateNickname(nickname).error ||
+    validateUsername(username).error ||
+    validatePassword(password).error ||
+    validateRepeatedPassword(password, repeatedPassword).error;
 
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -144,7 +166,26 @@ const RegisterForm = ({ setAlert }) => {
         </CenteredHorizontally>
 
         <CenteredHorizontally>
+          <TextField
+            required
+            id="outlined-basic"
+            label="Repeat password"
+            variant="outlined"
+            type="password"
+            autoComplete="current-password"
+            value={repeatedPassword}
+            error={repeatedPasswordValidation.error}
+            onChange={onChangeRepeatedPassword}
+          />
+        </CenteredHorizontally>
+
+        <CenteredHorizontally>
+          <h4>{repeatedPasswordValidation.message}</h4>
+        </CenteredHorizontally>
+
+        <CenteredHorizontally>
           <IconButton
+            disabled={isThereAValidationError()}
             variant="contained"
             color="primary"
             onClick={handleRegister}
