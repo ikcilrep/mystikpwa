@@ -5,21 +5,22 @@ import { Redirect } from "react-router-dom";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
 
 const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
-  const [isRedirectBack, setRedirectBack] = useState(false);
+  const [redirectPath, setRedirectPath] = useState(undefined);
 
-  if (isRedirectBack) {
-    return <Redirect to="/authorize" />;
+  if (redirectPath !== undefined) {
+    return <Redirect to={redirectPath} />;
   }
-
-  const handleRedirectBack = () => setRedirectBack(true);
 
   return (
     <>
-      <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
+      <Navbar />
       <CollapsingAlert text={alert} onClose={() => setAlert("")} />
 
       <center>
-        <LoginForm handleAuthorization={handleAuthorization} />
+        <LoginForm
+          handleAuthorization={handleAuthorization}
+          setRedirectPath={setRedirectPath}
+        />
       </center>
     </>
   );

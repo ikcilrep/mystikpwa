@@ -8,8 +8,9 @@ import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import axios from "axios";
 import { handleErrorMessage } from "../../Helpers/ErrorHandling";
+import Button from "@material-ui/core/Button";
 
-const LoginForm = ({ handleAuthorization }) => {
+const LoginForm = ({ handleAuthorization, setRedirectPath }) => {
   const [doRememberMe, setRememberMe] = useState(true);
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
@@ -111,6 +112,14 @@ const LoginForm = ({ handleAuthorization }) => {
       >
         <DoneIcon />
       </IconButton>
+      <br></br>
+      <Button
+        variant="text"
+        color="primary"
+        onClick={() => setRedirectPath("/authorize/register")}
+      >
+        Or maybe register
+      </Button>
     </div>
   );
 };
