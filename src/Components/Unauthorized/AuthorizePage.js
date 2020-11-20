@@ -17,7 +17,7 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
     <div>
       <Switch>
         <Route path={`${match.path}/login`}>
-          <LoginPage handleAuthorization={handleAuthorization} alert={alert} />
+          <LoginPage handleAuthorization={handleAuthorization} alert={alert} setAlert={setAlert} />
         </Route>
         <Route path={`${match.path}/register`}>
           <RegisterPage setAlert={setAlert} />

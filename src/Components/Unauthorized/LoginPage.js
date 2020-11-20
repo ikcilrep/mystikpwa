@@ -6,7 +6,7 @@ import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
 
-const LoginPage = ({ handleAuthorization, alert }) => {
+const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
 
   if (isRedirectBack) {
@@ -18,7 +18,7 @@ const LoginPage = ({ handleAuthorization, alert }) => {
   return (
     <>
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
-      <CollapsingAlert text={alert} />
+      <CollapsingAlert text={alert} onClose={() => setAlert("")} />
 
       <Grid
         container
