@@ -14,6 +14,7 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -79,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ newMessagesNumber, notificationsNumber }) => {
+const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -158,6 +159,11 @@ const Navbar = ({ newMessagesNumber, notificationsNumber }) => {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="logout" aria-controls="logout" color="inherit">
+          <ExitToAppIcon />
+        </IconButton>
+      </MenuItem>
     </Menu>
   );
 
@@ -210,6 +216,14 @@ const Navbar = ({ newMessagesNumber, notificationsNumber }) => {
               color="inherit"
             >
               <AccountCircle />
+            </IconButton>
+            <IconButton
+              aria-label="logout"
+              aria-controls="logout"
+              color="inherit"
+              onClick={logout}
+            >
+              <ExitToAppIcon />
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>

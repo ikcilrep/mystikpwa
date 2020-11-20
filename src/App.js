@@ -7,12 +7,18 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 const isTokenUpToDate = (user) => user.expirationDate > Date.now();
 
 function App() {
-  const [cookies, setCookie] = useCookies(["user"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const [isAuthorized, setAuthorized] = useState(
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
   const [, setUser] = useState(undefined);
+
+  const logout = () => {
+    removeCookie("user");
+    setUser(undefined);
+    setAuthorized(false);
+  };
 
   const handleAuthorization = ({ user, doRememberMe }) => {
     setAuthorized(true);
@@ -33,7 +39,7 @@ function App() {
             />
           </Route>
           <Route path="/">
-            <HomePage isAuthorized={isAuthorized} />
+            <HomePage isAuthorized={isAuthorized} logout={logout} />
           </Route>
         </Switch>
       </div>
