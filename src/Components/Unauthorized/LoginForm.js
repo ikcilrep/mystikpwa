@@ -43,7 +43,7 @@ const LoginForm = ({ handleAuthorization }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = async ({ username, password }) => {
+  const handleLogIn = async () => {
     try {
       const response = await axios.post(
         `${serverAddress}/users/authenticate`,
@@ -119,20 +119,19 @@ const LoginForm = ({ handleAuthorization }) => {
         </CenteredHorizontal>
 
         <CenteredHorizontal>
-            <FormControlLabel
-              control={
-                <Checkbox checked={doRememberMe} onChange={handleChange} />
-              }
-              label="Remember me"
-            />
- 
+          <FormControlLabel
+            control={
+              <Checkbox checked={doRememberMe} onChange={handleChange} />
+            }
+            label="Remember me"
+          />
         </CenteredHorizontal>
 
-       <CenteredHorizontal>
+        <CenteredHorizontal>
           <IconButton
             variant="contained"
             color="primary"
-            onClick={() => handleSignIn({ username, password })}
+            onClick={handleLogIn}
           >
             <DoneIcon />
           </IconButton>

@@ -61,7 +61,7 @@ const RegisterForm = ({ setAlert }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = async ({ username, password }) => {
+  const handleRegister = async () => {
     try {
       await axios.post(
         `${serverAddress}/users/register`,
@@ -154,7 +154,7 @@ const RegisterForm = ({ setAlert }) => {
           <IconButton
             variant="contained"
             color="primary"
-            onClick={() => handleSignIn({ username, password })}
+            onClick={handleRegister}
           >
             <DoneIcon />
           </IconButton>
