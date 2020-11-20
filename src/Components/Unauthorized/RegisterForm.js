@@ -106,6 +106,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        variant="outlined"
         label="Nickname"
         value={nickname}
         error={nicknameValidation.error}
@@ -117,6 +118,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        variant="outlined"
         label="Username"
         value={username}
         error={usernameValidation.error}
@@ -128,6 +130,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        variant="outlined"
         label="Password"
         type="password"
         autoComplete="current-password"
@@ -141,6 +144,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        variant="outlined"
         label="Repeat password"
         type="password"
         autoComplete="current-password"
