@@ -21,28 +21,26 @@ const AuthorizationChoice = () => {
   return (
     <>
       <Navbar isMainPage={true} />
-      <CenteredVertical
-        component={
-          <>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              onClick={() => setRedirect("login")}
-            >
-              Log In
-            </Button>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              onClick={() => setRedirect("register")}
-            >
-              Register
-            </Button>
-          </>
-        }
-      />
+      <CenteredVertical>
+        <>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            onClick={() => setRedirect("login")}
+          >
+            Log In
+          </Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            size="large"
+            onClick={() => setRedirect("register")}
+          >
+            Register
+          </Button>
+        </>
+      </CenteredVertical>
     </>
   );
 };

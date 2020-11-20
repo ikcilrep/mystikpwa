@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-const CenteredVertical = ({ component }) => {
+const CenteredVertical = ({ children }) => {
   return (
     <Grid
       container
@@ -12,7 +12,7 @@ const CenteredVertical = ({ component }) => {
       style={{ minHeight: "100vh" }}
     >
       <Grid item xs={3}>
-        {component}
+        {children}
       </Grid>
     </Grid>
   );

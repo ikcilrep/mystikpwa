@@ -16,9 +16,9 @@ const RegisterPage = ({ setAlert }) => {
   return (
     <>
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
-      <CenteredVertical
-        component={<RegisterForm setAlert={setAlert} />}
-      />
+      <CenteredVertical>
+        <RegisterForm setAlert={setAlert} />
+      </CenteredVertical>
     </>
   );
 };

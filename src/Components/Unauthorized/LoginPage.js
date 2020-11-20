@@ -21,9 +21,9 @@ const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
       <CollapsingAlert text={alert} onClose={() => setAlert("")} />
 
-      <CenteredVertical
-        component={<LoginForm handleAuthorization={handleAuthorization} />}
-      />
+      <CenteredVertical>
+        <LoginForm handleAuthorization={handleAuthorization} />
+      </CenteredVertical>
     </>
   );
 };

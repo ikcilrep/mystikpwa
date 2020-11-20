@@ -92,82 +92,73 @@ const RegisterForm = ({ setAlert }) => {
         alignItems="center"
         justify="center"
       >
-        <CenteredHorizontal component={<h1>Register</h1>} />
-        <CenteredHorizontal
-          component={<h3 style={{ color: "red" }}>{errorMessage}</h3>}
-        />
-        <CenteredHorizontal
-          component={
-            <TextField
-              required
-              id="outlined-basic"
-              label="Nickname"
-              variant="outlined"
-              value={nickname}
-              error={nicknameValidation.error}
-              onChange={onChangeNickname}
-            />
-          }
-        />
+        <CenteredHorizontal>
+          <h1>Register</h1>
+        </CenteredHorizontal>
 
-        <CenteredHorizontal component={<h4>{nicknameValidation.message}</h4>} />
+        <CenteredHorizontal>
+          <h3 style={{ color: "red" }}>{errorMessage}</h3>
+        </CenteredHorizontal>
 
-        <CenteredHorizontal
-          component={
-            <TextField
-              required
-              id="outlined-basic"
-              label="Username"
-              variant="outlined"
-              value={username}
-              error={usernameValidation.error}
-              onChange={onChangeUsername}
-            />
-          }
-        />
+        <CenteredHorizontal>
+          <TextField
+            required
+            id="outlined-basic"
+            label="Nickname"
+            variant="outlined"
+            value={nickname}
+            error={nicknameValidation.error}
+            onChange={onChangeNickname}
+          />
+        </CenteredHorizontal>
 
-        <CenteredHorizontal component={<h4>{usernameValidation.message}</h4>} />
+        <CenteredHorizontal>
+          <h4>{nicknameValidation.message}</h4>
+        </CenteredHorizontal>
 
-        <CenteredHorizontal
-          component={
-            <TextField
-              required
-              id="outlined-basic"
-              label="Password"
-              variant="outlined"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              error={passwordValidation.error}
-              onChange={onChangePassword}
-            />
-          }
-        />
+        <CenteredHorizontal>
+          <TextField
+            required
+            id="outlined-basic"
+            label="Username"
+            variant="outlined"
+            value={username}
+            error={usernameValidation.error}
+            onChange={onChangeUsername}
+          />
+        </CenteredHorizontal>
 
-        <CenteredHorizontal component={<h4>{passwordValidation.message}</h4>} />
+        <CenteredHorizontal>
+          <h4>{usernameValidation.message}</h4>
+        </CenteredHorizontal>
 
-        <CenteredHorizontal
-          component={
-            <FormControlLabel
-              control={
-                <Checkbox checked={doRememberMe} onChange={handleChange} />
-              }
-              label="Remember me"
-            />
-          }
-        />
+        <CenteredHorizontal>
+          <TextField
+            required
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            error={passwordValidation.error}
+            onChange={onChangePassword}
+          />
+        </CenteredHorizontal>
 
-        <CenteredHorizontal
-          component={
-            <IconButton
-              variant="contained"
-              color="primary"
-              onClick={() => handleSignIn({ username, password })}
-            >
-              <DoneIcon />
-            </IconButton>
-          }
-        />
+        <CenteredHorizontal>
+          <h4>{passwordValidation.message}</h4>
+        </CenteredHorizontal>
+
+        <CenteredHorizontal>
+          <IconButton
+            variant="contained"
+            color="primary"
+            onClick={() => handleSignIn({ username, password })}
+          >
+            <DoneIcon />
+          </IconButton>
+        </CenteredHorizontal>
       </Grid>
     </div>
   );
