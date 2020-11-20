@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import CenteredHorizontal from "../Helpers/CenteredHorizontal";
+import CenteredHorizontally from "../Helpers/CenteredHorizontally";
 import {
   validateUsername,
   validateNickname,
@@ -85,15 +85,15 @@ const RegisterForm = ({ setAlert }) => {
         alignItems="center"
         justify="center"
       >
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h1>Register</h1>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h3 style={{ color: "red" }}>{errorMessage}</h3>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <TextField
             required
             id="outlined-basic"
@@ -103,13 +103,13 @@ const RegisterForm = ({ setAlert }) => {
             error={nicknameValidation.error}
             onChange={onChangeNickname}
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h4>{nicknameValidation.message}</h4>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <TextField
             required
             id="outlined-basic"
@@ -119,13 +119,13 @@ const RegisterForm = ({ setAlert }) => {
             error={usernameValidation.error}
             onChange={onChangeUsername}
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h4>{usernameValidation.message}</h4>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <TextField
             required
             id="outlined-basic"
@@ -137,13 +137,13 @@ const RegisterForm = ({ setAlert }) => {
             error={passwordValidation.error}
             onChange={onChangePassword}
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h4>{passwordValidation.message}</h4>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <IconButton
             variant="contained"
             color="primary"
@@ -151,7 +151,7 @@ const RegisterForm = ({ setAlert }) => {
           >
             <DoneIcon />
           </IconButton>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
       </Grid>
     </div>
   );

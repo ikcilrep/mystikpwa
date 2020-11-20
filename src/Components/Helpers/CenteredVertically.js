@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-const CenteredVertical = ({ children }) => {
+const CenteredVertically = ({ children }) => {
   return (
     <Grid
       container
@@ -18,4 +18,4 @@ const CenteredVertical = ({ children }) => {
   );
 };
 
-export default CenteredVertical;
+export default CenteredVertically;

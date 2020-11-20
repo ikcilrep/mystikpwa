@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import { Redirect, useRouteMatch } from "react-router-dom";
 import Navbar from "./Navbar";
-import CenteredVertical from "../Helpers/CenteredVertical";
+import CenteredVertically from "../Helpers/CenteredVertically";
 
 const AuthorizationChoice = () => {
   const [redirectPath, setRedirectPath] = useState(null);
@@ -20,7 +20,7 @@ const AuthorizationChoice = () => {
   return (
     <>
       <Navbar isMainPage={true} />
-      <CenteredVertical>
+      <CenteredVertically>
         <>
           <Button
             variant="contained"
@@ -39,7 +39,7 @@ const AuthorizationChoice = () => {
             Register
           </Button>
         </>
-      </CenteredVertical>
+      </CenteredVertically>
     </>
   );
 };

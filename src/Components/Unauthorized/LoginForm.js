@@ -5,7 +5,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import IconButton from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
-import CenteredHorizontal from "../Helpers/CenteredHorizontal";
+import CenteredHorizontally from "../Helpers/CenteredHorizontally";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import axios from "axios";
@@ -76,15 +76,15 @@ const LoginForm = ({ handleAuthorization }) => {
         alignItems="center"
         justify="center"
       >
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h1>Log In</h1>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h3 style={{ color: "red" }}>{errorMessage}</h3>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <TextField
             required
             id="outlined-basic"
@@ -94,13 +94,13 @@ const LoginForm = ({ handleAuthorization }) => {
             error={usernameValidation.error}
             onChange={onChangeUsername}
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h4>{usernameValidation.message}</h4>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <TextField
             required
             id="outlined-basic"
@@ -112,22 +112,22 @@ const LoginForm = ({ handleAuthorization }) => {
             error={passwordValidation.error}
             onChange={onChangePassword}
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <h4>{passwordValidation.message}</h4>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <FormControlLabel
             control={
               <Checkbox checked={doRememberMe} onChange={handleChange} />
             }
             label="Remember me"
           />
-        </CenteredHorizontal>
+        </CenteredHorizontally>
 
-        <CenteredHorizontal>
+        <CenteredHorizontally>
           <IconButton
             variant="contained"
             color="primary"
@@ -135,7 +135,7 @@ const LoginForm = ({ handleAuthorization }) => {
           >
             <DoneIcon />
           </IconButton>
-        </CenteredHorizontal>
+        </CenteredHorizontally>
       </Grid>
     </div>
   );

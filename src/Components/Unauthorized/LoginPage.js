@@ -3,7 +3,7 @@ import LoginForm from "./LoginForm";
 import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
-import CenteredVertical from "../Helpers/CenteredVertical";
+import CenteredVertically from "../Helpers/CenteredVertically";
 
 const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
   const [isRedirectBack, setRedirectBack] = useState(false);
@@ -19,9 +19,9 @@ const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
       <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
       <CollapsingAlert text={alert} onClose={() => setAlert("")} />
 
-      <CenteredVertical>
+      <CenteredVertically>
         <LoginForm handleAuthorization={handleAuthorization} />
-      </CenteredVertical>
+      </CenteredVertically>
     </>
   );
 };

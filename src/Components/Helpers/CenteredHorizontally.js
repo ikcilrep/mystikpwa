@@ -1,7 +1,7 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 
-const CenteredHorizontal = ({  children }) => {
+const CenteredHorizontally = ({ children }) => {
   return (
     <>
       <Grid item xs={4} />
@@ -13,4 +13,4 @@ const CenteredHorizontal = ({  children }) => {
   );
 };
 
-export default CenteredHorizontal;
+export default CenteredHorizontally;
