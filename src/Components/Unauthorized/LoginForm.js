@@ -8,8 +8,7 @@ import DoneIcon from "@material-ui/icons/Done";
 import Centered from "../Helpers/Centered";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
-
-const axios = require("axios");
+import axios from "axios";
 
 const LoginForm = ({ handleAuthorization }) => {
   const [doRememberMe, setRememberMe] = useState(true);
@@ -43,11 +42,6 @@ const LoginForm = ({ handleAuthorization }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const clearFields = () => {
-    setUsername("");
-    setPassword("");
-  };
-
   const handleSignIn = ({ username, password }) => {
     axios
       .post(
@@ -67,8 +61,6 @@ const LoginForm = ({ handleAuthorization }) => {
           },
           doRememberMe,
         });
-        setErrorMessage("");
-        clearFields();
       })
       .catch((err) => {
         try {
