@@ -42,36 +42,35 @@ const LoginForm = ({ handleAuthorization }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = ({ username, password }) => {
-    axios
-      .post(
+  const handleSignIn = async ({ username, password }) => {
+    try {
+      const response = await axios.post(
         `${serverAddress}/users/authenticate`,
         {
           username,
           password,
         },
         { headers: { "content-type": "application/json" } }
-      )
-      .then((response) => {
-        handleAuthorization({
-          user: {
-            id: response.data.id,
-            token: response.data.token,
-            expirationDate: Date.parse(response.data.expirationDate),
-          },
-          doRememberMe,
-        });
-      })
-      .catch((err) => {
-        try {
-          const message = err.response.data.message;
-          if (message) {
-            setErrorMessage(message);
-          }
-        } catch (_) {
-          setErrorMessage("There was an error, try again.");
-        }
+      );
+
+      handleAuthorization({
+        user: {
+          id: response.data.id,
+          token: response.data.token,
+          expirationDate: Date.parse(response.data.expirationDate),
+        },
+        doRememberMe,
       });
+    } catch (err) {
+      try {
+        const message = err.response.data.message;
+        if (message) {
+          setErrorMessage(message);
+        }
+      } catch (_) {
+        setErrorMessage("There was an error, try again.");
+      }
+    }
   };
 
   return (

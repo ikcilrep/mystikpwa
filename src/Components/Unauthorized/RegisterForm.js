@@ -13,10 +13,9 @@ import {
 } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
 import { Redirect } from "react-router-dom";
+import axios from "axios";
 
-const axios = require("axios");
-
-const RegisterForm = ({setAlert}) => {
+const RegisterForm = ({ setAlert }) => {
   const [isRegistered, setRegistered] = useState(false);
 
   const [doRememberMe, setRememberMe] = useState(true);
@@ -61,9 +60,9 @@ const RegisterForm = ({setAlert}) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSignIn = ({ username, password }) => {
-    axios
-      .post(
+  const handleSignIn = async ({ username, password }) => {
+    try {
+      await axios.post(
         `${serverAddress}/users/register`,
         {
           nickname,
@@ -71,22 +70,19 @@ const RegisterForm = ({setAlert}) => {
           password,
         },
         { headers: { "content-type": "application/json" } }
-      )
-      .then(() => {
-        setAlert("Successfully registered!");
-        setRegistered(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        try {
-          const message = err.response.data.message;
-          if (message) {
-            setErrorMessage(message);
-          }
-        } catch (_) {
-          setErrorMessage("There was an error, try again.");
+      );
+      setAlert("Successfully registered!");
+      setRegistered(true);
+    } catch (err) {
+      try {
+        const message = err.response.data.message;
+        if (message) {
+          setErrorMessage(message);
         }
-      });
+      } catch (_) {
+        setErrorMessage("There was an error, try again.");
+      }
+    }
   };
 
   if (isRegistered) {
