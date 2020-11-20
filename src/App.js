@@ -12,7 +12,7 @@ function App() {
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  const [user,  setUser] = useState(undefined);
+  const [, setUser] = useState(undefined);
 
   const handleAuthorization = ({ user, doRememberMe }) => {
     setUser(user);
