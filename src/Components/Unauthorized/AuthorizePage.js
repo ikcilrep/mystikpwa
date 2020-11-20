@@ -1,13 +1,17 @@
 import Navbar from "./Navbar";
 import LoginPage from "./LoginPage";
 import React, { useState } from "react";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 import AuthorizationChoice from "./AuthorizationChoice";
 
-const AuthorizePage = ({ handleAuthorization }) => {
+const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
   let match = useRouteMatch();
 
   const [isMainPage, setMainPage] = useState(true);
+
+  if (isAuthorized) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <div>

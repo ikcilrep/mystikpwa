@@ -26,7 +26,10 @@ function App() {
       <div>
         <Switch>
           <Route path="/authorize">
-            <AuthorizePage handleAuthorization={handleAuthorization} />
+            <AuthorizePage
+              handleAuthorization={handleAuthorization}
+              isAuthorized={isAuthorized}
+            />
           </Route>
           <Route path="/">
             <HomePage isAuthorized={isAuthorized} />
