@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import IconButton from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Button from "@material-ui/core/Button";
 import DoneIcon from "@material-ui/icons/Done";
 import {
   validateUsername,
@@ -13,7 +14,7 @@ import { Redirect } from "react-router-dom";
 import axios from "axios";
 import { handleErrorMessage } from "../../Helpers/ErrorHandling";
 
-const RegisterForm = ({ setAlert }) => {
+const RegisterForm = ({ setAlert, setRedirectPath }) => {
   const [isRegistered, setRegistered] = useState(false);
 
   const [nickname, setNickname] = useState("");
@@ -158,6 +159,14 @@ const RegisterForm = ({ setAlert }) => {
       >
         <DoneIcon />
       </IconButton>
+      <br />
+      <Button
+        variant="text"
+        color="primary"
+        onClick={() => setRedirectPath("/authorize/login")}
+      >
+        Or maybe login 
+      </Button>
     </div>
   );
 };

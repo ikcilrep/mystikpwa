@@ -4,18 +4,17 @@ import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 
 const RegisterPage = ({ setAlert }) => {
-  const [isRedirectBack, setRedirectBack] = useState(false);
-  if (isRedirectBack) {
-    return <Redirect to="/authorize" />;
-  }
+  const [redirectPath, setRedirectPath] = useState(undefined);
 
-  const handleRedirectBack = () => setRedirectBack(true);
+  if (redirectPath !== undefined) {
+    return <Redirect to={redirectPath} />;
+  }
 
   return (
     <>
-      <Navbar isMainPage={false} handleRedirectBack={handleRedirectBack} />
+      <Navbar />
       <center>
-        <RegisterForm setAlert={setAlert} />
+        <RegisterForm setAlert={setAlert} setRedirectPath={setRedirectPath} />
       </center>
     </>
   );
