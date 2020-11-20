@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import IconButton from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import DoneIcon from "@material-ui/icons/Done";
 import { validateUsername, validatePassword } from "../../Helpers/Validation";
 import { serverAddress } from "../../settings.json";
