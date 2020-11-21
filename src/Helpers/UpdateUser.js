@@ -1,5 +1,6 @@
 import axios from "axios";
 import { serverAddress } from "../settings.json";
+import { fetchUser, getAuthorizedConfig } from "./DataFetching";
 
 const mapIds = (entities) => entities.map((entity) => entity.id);
 const removeIds = (entities, ids) =>
@@ -92,43 +93,48 @@ const concatUsers = (user1, user2) => {
   return concatedUser;
 };
 
-const updateUser = async (user) => {
-  const updateTime = new Date().toISOString();
-  const config = {
-    headers: { Authorization: `Bearer ${user.token}` },
-  };
-  if (user.lastUpdate !== undefined) {
-    const response = await axios.post(
-      `${serverAddress}/users/removed/${user.id}`,
-      userToIdsObject(user),
-      config
-    );
+const removeDeletedEntities = async (user) => {
+  const response = await axios.post(
+    `${serverAddress}/users/removed/${user.id}`,
+    userToIdsObject(user),
+    getAuthorizedConfig(user.token)
+  );
 
-    const entitiesToRemove = response.data;
-    removeEntitiesWithIds(user, entitiesToRemove);
-  }
+  const entitiesToRemove = response.data;
+  removeEntitiesWithIds(user, entitiesToRemove);
+};
+
+const copyConstantFields = async (userTo, userFrom) => {
+  userTo.token = userFrom.token;
+  userTo.expirationDate = userFrom.expirationDate;
+};
+
+const fetchNewEntities = async (user, updateTime) => {
   try {
-    const body =
-      user.lastUpdate === undefined ? {} : { since: user.lastUpdate };
+    const updatedUser = fetchUser({
+      id: user.id,
+      token: user.token,
+      lastUpdate: user.lastUpdate,
+    });
 
-    const response = await axios.post(
-      `${serverAddress}/users/${user.id}`,
-      body,
-      config
-    );
-    const updatedUser = response.data;
-    updatedUser.token = user.token;
-    updatedUser.expirationDate = user.expirationDate;
+    copyConstantFields(updateUser, user);
     updatedUser.lastUpdate = updateTime;
 
     if (user.lastUpdate !== undefined) {
-      console.log(concatUsers(updatedUser, user));
       return concatUsers(updatedUser, user);
     }
     return updatedUser;
   } catch (err) {
     console.log(err);
   }
+};
+
+const updateUser = async (user) => {
+  const updateTime = new Date().toISOString();
+  if (user.lastUpdate !== undefined) {
+    await removeDeletedEntities(user);
+  }
+  return await fetchNewEntities(user, updateTime);
 };
 
 export default updateUser;
