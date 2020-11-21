@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ notificationsNumber, logout }) => {
+const Navbar = ({ notificationsNumber, logout, setQuery }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -185,6 +185,7 @@ const Navbar = ({ notificationsNumber, logout }) => {
                 input: classes.inputInput,
               }}
               inputProps={{ "aria-label": "search" }}
+              onChange={(e) => setQuery(e.target.value)}
             />
           </div>
           <div className={classes.grow} />

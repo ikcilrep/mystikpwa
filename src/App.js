@@ -57,7 +57,8 @@ function App() {
         setCookie("user", updatedUser);
       });
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
@@ -71,7 +72,11 @@ function App() {
               />
             </Route>
             <Route path="/">
-              <HomePage isAuthenticated={isAuthenticated} logout={logout} />
+              <HomePage
+                isAuthenticated={isAuthenticated}
+                logout={logout}
+                user={user}
+              />
             </Route>
           </Switch>
         </div>
