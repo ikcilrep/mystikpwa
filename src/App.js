@@ -89,7 +89,6 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-  console.log(user);
 
   return (
     <ThemeProvider theme={theme}>
