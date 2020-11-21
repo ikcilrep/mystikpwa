@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import React from "react";
 import { Redirect } from "react-router-dom";
+import ConversationsList from "./ConversationsList";
 
 const HomePage = ({ isAuthenticated, logout }) => {
   if (!isAuthenticated) {
@@ -10,7 +11,8 @@ const HomePage = ({ isAuthenticated, logout }) => {
   return (
     <div>
       <Navbar logout={logout} />
-   </div>
+      <ConversationsList />
+    </div>
   );
 };
 

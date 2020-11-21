@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
+import updateUser from "./Helpers/UpdateUser";
 
 const theme = createMuiTheme({
   palette: {
@@ -26,7 +27,7 @@ function App() {
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
-  const [, setUser] = useState(undefined);
+  const [user, setUser] = useState(undefined);
 
   const logout = () => {
     removeCookie("user");
@@ -36,11 +37,25 @@ function App() {
 
   const handleAuthentication = ({ user, doRememberMe }) => {
     setAuthenticated(true);
-    setUser(user);
+    updateUser(user).then((updatedUser) => {
+      setUser(updatedUser);
+    });
+
     if (doRememberMe) {
       setCookie("user", user);
     }
   };
+
+  if (
+    user === undefined &&
+    cookies["user"] !== undefined &&
+    isTokenUpToDate(cookies["user"])
+  ) {
+    updateUser(cookies["user"]).then((updatedUser) => {
+      setUser(updatedUser);
+      setCookie("user", updatedUser);
+    });
+  }
 
   return (
     <ThemeProvider theme={theme}>
