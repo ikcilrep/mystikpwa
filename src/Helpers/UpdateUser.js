@@ -104,20 +104,20 @@ const removeDeletedEntities = async (user) => {
   removeEntitiesWithIds(user, entitiesToRemove);
 };
 
-const copyConstantFields = async (userTo, userFrom) => {
+const copyConstantFields = (userTo, userFrom) => {
   userTo.token = userFrom.token;
   userTo.expirationDate = userFrom.expirationDate;
 };
 
 const fetchNewEntities = async (user, updateTime) => {
   try {
-    const updatedUser = fetchUser({
+    const updatedUser = await fetchUser({
       id: user.id,
       token: user.token,
       lastUpdate: user.lastUpdate,
     });
 
-    copyConstantFields(updateUser, user);
+    copyConstantFields(updatedUser, user);
     updatedUser.lastUpdate = updateTime;
 
     if (user.lastUpdate !== undefined) {
