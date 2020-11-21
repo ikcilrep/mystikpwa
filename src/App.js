@@ -53,11 +53,7 @@ function App() {
   };
 
   useEffect(() => {
-    if (
-      user === undefined &&
-      cookies["user"] !== undefined &&
-      isTokenUpToDate(cookies["user"])
-    ) {
+    if (cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])) {
       updateUser(cookies["user"]).then((updatedUser) => {
         setUser(updatedUser);
         setCookie("user", updatedUser);
@@ -93,6 +89,7 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+  console.log(user);
 
   return (
     <ThemeProvider theme={theme}>
