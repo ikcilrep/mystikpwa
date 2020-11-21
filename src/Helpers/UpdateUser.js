@@ -3,7 +3,7 @@ import { serverAddress } from "../settings.json";
 
 const mapIds = (entities) => entities.map((entity) => entity.id);
 const removeIds = (entities, ids) =>
-  entities.filter((entity) => !ids.contains(entity.id));
+  entities.filter((entity) => !ids.includes(entity.id));
 
 const userToIdsObject = (user) => {
   const idsObject = {};
@@ -23,7 +23,7 @@ const userToIdsObject = (user) => {
 const removeEntitiesWithIds = (user, idsObject) => {
   user.friends = removeIds(user.friends, idsObject.friendsIds);
   user.invited = removeIds(user.invited, idsObject.invitedIds);
-  user.inviters = removeIds(user.inviters, idsObject.inviterIds);
+  user.inviters = removeIds(user.inviters, idsObject.invitersIds);
   user.conversations = removeIds(user.conversations, idsObject.conversationIds);
   user.conversations.forEach((conversation) => {
     conversation.members = removeIds(
@@ -43,7 +43,7 @@ const getCommonConversations = (user1, user2) =>
   );
 
 const excludeEntities = (entities, entitiesToExclude) =>
-  entities.filter((c) => !mapIds(entitiesToExclude).contains(c.id));
+  entities.filter((c) => !mapIds(entitiesToExclude).includes(c.id));
 
 const concatConversationsFields = (conversation1, conversation2) => {
   const concatedConversations = {
