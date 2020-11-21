@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HomePage from "./Components/Authenticated/HomePage";
 import AuthenticationPage from "./Components/Unauthenticated/AuthenticationPage";
 import { useCookies } from "react-cookie";
@@ -46,16 +46,18 @@ function App() {
     }
   };
 
-  if (
-    user === undefined &&
-    cookies["user"] !== undefined &&
-    isTokenUpToDate(cookies["user"])
-  ) {
-    updateUser(cookies["user"]).then((updatedUser) => {
-      setUser(updatedUser);
-      setCookie("user", updatedUser);
-    });
-  }
+  useEffect(() => {
+    if (
+      user === undefined &&
+      cookies["user"] !== undefined &&
+      isTokenUpToDate(cookies["user"])
+    ) {
+      updateUser(cookies["user"]).then((updatedUser) => {
+        setUser(updatedUser);
+        setCookie("user", updatedUser);
+      });
+    }
+  });
 
   return (
     <ThemeProvider theme={theme}>
