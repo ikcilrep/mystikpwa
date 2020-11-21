@@ -9,6 +9,8 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+//import { receiveInvitation } from "./Helpers/UserModyfing";
+//import { fetchUserPublicData } from "./Helpers/DataFetching";
 
 const theme = createMuiTheme({
   palette: {
@@ -30,6 +32,7 @@ function App() {
   );
 
   const [user, setUser] = useState(undefined);
+  const [doRememberMe, setRememberMe] = useState(false);
 
   const logout = () => {
     removeCookie("user");
@@ -39,6 +42,7 @@ function App() {
 
   const handleAuthentication = ({ user, doRememberMe }) => {
     setAuthenticated(true);
+    setRememberMe(doRememberMe);
     updateUser(user).then((updatedUser) => {
       setUser(updatedUser);
     });
@@ -63,6 +67,12 @@ function App() {
   }, []);
 
   const [connection, setConnection] = useState(undefined);
+  useEffect(() => {
+    if (doRememberMe) {
+      setCookie("user", user);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, doRememberMe]);
 
   useEffect(() => {
     if (user !== undefined && connection === undefined) {
@@ -75,6 +85,11 @@ function App() {
       connection.start().then(() => {
         setConnection(connection);
       });
+      /* connection.on("receiveInvitation", (inviterId) => {
+        const inviter = fetchUserPublicData(inviterId, user.token);
+        receiveInvitation({ inviter, user, setUser });
+      });
+ */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
