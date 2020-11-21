@@ -9,7 +9,6 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
-import { InsertDriveFileRounded } from "@material-ui/icons";
 
 const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -31,14 +30,14 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
     handleSearchRequest();
   }, [query, user]);
 
-  const handleInvitation = (foundUser) => {
+  const handleInviting = (foundUser) => {
     connection.invoke("inviteFriends", [foundUser.id]);
     const userCopy = { ...user };
     userCopy.invited.push(foundUser);
     setUser(userCopy);
   };
 
-  const handleInvitationUndo = (foundUser) => {
+  const handleDeletingInvitation = (foundUser) => {
     connection.invoke("deleteInvitations", [foundUser.id]);
     const userCopy = { ...user };
     userCopy.invited = userCopy.invited.filter((i) => i.id !== foundUser.id);
@@ -70,14 +69,14 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
               {canUserBeInvited(foundUser) ? (
                 <IconButton
                   color="secondary"
-                  onClick={() => handleInvitation(foundUser)}
+                  onClick={() => handleInviting(foundUser)}
                 >
                   <AddIcon />
                 </IconButton>
               ) : (
                 <IconButton
                   color="secondary"
-                  onClick={() => handleInvitationUndo(foundUser)}
+                  onClick={() => handleDeletingInvitation(foundUser)}
                 >
                   <UndoIcon />
                 </IconButton>
