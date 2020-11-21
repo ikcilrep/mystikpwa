@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
+import { inviteUser } from "../../Helpers/UserModyfing";
 
 const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -32,9 +33,7 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
 
   const handleInviting = (foundUser) => {
     connection.invoke("inviteFriends", [foundUser.id]);
-    const userCopy = { ...user };
-    userCopy.invited.push(foundUser);
-    setUser(userCopy);
+    inviteUser({ invitedUser: foundUser, user, setUser });
   };
 
   const handleDeletingInvitation = (foundUser) => {
