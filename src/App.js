@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import HomePage from "./Components/Authorized/HomePage";
-import AuthorizePage from "./Components/Unauthorized/AuthorizePage";
+import HomePage from "./Components/Authenticated/HomePage";
+import AuthenticationPage from "./Components/Unauthenticated/AuthenticationPage";
 import { useCookies } from "react-cookie";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider } from "@material-ui/styles";
 
 const theme = createMuiTheme({
   palette: {
@@ -22,7 +22,7 @@ const isTokenUpToDate = (user) => user.expirationDate > Date.now();
 
 function App() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
-  const [isAuthorized, setAuthorized] = useState(
+  const [isAuthenticated, setAuthenticated] = useState(
     cookies["user"] !== undefined && isTokenUpToDate(cookies["user"])
   );
 
@@ -31,11 +31,11 @@ function App() {
   const logout = () => {
     removeCookie("user");
     setUser(undefined);
-    setAuthorized(false);
+    setAuthenticated(false);
   };
 
-  const handleAuthorization = ({ user, doRememberMe }) => {
-    setAuthorized(true);
+  const handleAuthentication = ({ user, doRememberMe }) => {
+    setAuthenticated(true);
     setUser(user);
     if (doRememberMe) {
       setCookie("user", user);
@@ -47,14 +47,14 @@ function App() {
       <Router>
         <div>
           <Switch>
-            <Route path="/authorize">
-              <AuthorizePage
-                handleAuthorization={handleAuthorization}
-                isAuthorized={isAuthorized}
+            <Route path="/authenticate">
+              <AuthenticationPage
+                handleAuthentication={handleAuthentication}
+                isAuthenticated={isAuthenticated}
               />
             </Route>
             <Route path="/">
-              <HomePage isAuthorized={isAuthorized} logout={logout} />
+              <HomePage isAuthenticated={isAuthenticated} logout={logout} />
             </Route>
           </Switch>
         </div>

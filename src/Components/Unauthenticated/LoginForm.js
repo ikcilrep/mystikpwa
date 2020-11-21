@@ -10,7 +10,7 @@ import axios from "axios";
 import { handleErrorMessage } from "../../Helpers/ErrorHandling";
 import Button from "@material-ui/core/Button";
 
-const LoginForm = ({ handleAuthorization, setRedirectPath }) => {
+const LoginForm = ({ handleAuthentication, setRedirectPath }) => {
   const [doRememberMe, setRememberMe] = useState(true);
   const handleChange = (event) => {
     setRememberMe(event.target.checked);
@@ -56,7 +56,7 @@ const LoginForm = ({ handleAuthorization, setRedirectPath }) => {
         { headers: { "content-type": "application/json" } }
       );
 
-      handleAuthorization({
+      handleAuthentication({
         user: {
           id: response.data.id,
           token: response.data.token,
@@ -118,7 +118,7 @@ const LoginForm = ({ handleAuthorization, setRedirectPath }) => {
       <Button
         variant="text"
         color="primary"
-        onClick={() => setRedirectPath("/authorize/register")}
+        onClick={() => setRedirectPath("/Authenticate/register")}
       >
         Or maybe register
       </Button>

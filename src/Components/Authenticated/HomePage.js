@@ -2,15 +2,15 @@ import Navbar from "./Navbar";
 import React from "react";
 import { Redirect } from "react-router-dom";
 
-const HomePage = ({ isAuthorized, logout }) => {
-  if (!isAuthorized) {
-    return <Redirect to="/authorize" />;
+const HomePage = ({ isAuthenticated, logout }) => {
+  if (!isAuthenticated) {
+    return <Redirect to="/Authenticate" />;
   }
 
   return (
     <div>
       <Navbar logout={logout} />
-    </div>
+   </div>
   );
 };
 

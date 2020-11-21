@@ -3,12 +3,12 @@ import RegisterPage from "./RegisterPage";
 import React, { useState } from "react";
 import { Switch, Route, useRouteMatch, Redirect } from "react-router-dom";
 
-const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
+const AuthenticationPage = ({ handleAuthentication, isAuthenticated }) => {
   let match = useRouteMatch();
 
   const [alert, setAlert] = useState("");
 
-  if (isAuthorized) {
+  if (isAuthenticated) {
     return <Redirect to="/" />;
   }
 
@@ -17,7 +17,7 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
       <Switch>
         <Route path={`${match.path}/login`}>
           <LoginPage
-            handleAuthorization={handleAuthorization}
+            handleAuthentication={handleAuthentication}
             alert={alert}
             setAlert={setAlert}
           />
@@ -33,4 +33,4 @@ const AuthorizePage = ({ handleAuthorization, isAuthorized }) => {
   );
 };
 
-export default AuthorizePage;
+export default AuthenticationPage;

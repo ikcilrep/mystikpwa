@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import { Redirect } from "react-router-dom";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
 
-const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
+const LoginPage = ({ handleAuthentication, alert, setAlert }) => {
   const [redirectPath, setRedirectPath] = useState(undefined);
 
   if (redirectPath !== undefined) {
@@ -18,7 +18,7 @@ const LoginPage = ({ handleAuthorization, alert, setAlert }) => {
 
       <center>
         <LoginForm
-          handleAuthorization={handleAuthorization}
+          handleAuthentication={handleAuthentication}
           setRedirectPath={setRedirectPath}
         />
       </center>

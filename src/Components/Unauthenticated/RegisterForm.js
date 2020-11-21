@@ -94,7 +94,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
   };
 
   if (isRegistered) {
-    return <Redirect to="/authorize/login" />;
+    return <Redirect to="/Authenticate/login" />;
   }
 
   return (
@@ -167,7 +167,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <Button
         variant="text"
         color="primary"
-        onClick={() => setRedirectPath("/authorize/login")}
+        onClick={() => setRedirectPath("/Authenticate/login")}
       >
         Or maybe login 
       </Button>
