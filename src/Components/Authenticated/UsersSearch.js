@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import AddIcon from "@material-ui/icons/Add";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -49,13 +50,12 @@ const UsersSearch = ({ user, query }) => {
               secondary={foundUser.id}
             />
             <ListItemSecondaryAction>
-              <Button
-                variant="contained"
+              <IconButton
                 color="secondary"
                 disabled={!canUserBeInvited(foundUser)}
               >
-                Invite
-              </Button>
+                <AddIcon />
+              </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
         ))}
