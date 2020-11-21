@@ -7,6 +7,8 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
+import { serverAddress } from "./settings.json";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 const theme = createMuiTheme({
   palette: {
@@ -60,6 +62,23 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const [connection, setConnection] = useState(undefined);
+
+  useEffect(() => {
+    if (user !== undefined && connection === undefined) {
+      const connection = new HubConnectionBuilder()
+        .withUrl(`${serverAddress}/chat`, {
+          accessTokenFactory: () => user.token,
+        })
+        .build();
+
+      connection.start().then(() => {
+        setConnection(connection);
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -74,6 +93,7 @@ function App() {
             <Route path="/">
               <HomePage
                 isAuthenticated={isAuthenticated}
+                connection={connection}
                 logout={logout}
                 user={user}
               />

@@ -9,7 +9,7 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
 
-const UsersSearch = ({ user, query }) => {
+const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {

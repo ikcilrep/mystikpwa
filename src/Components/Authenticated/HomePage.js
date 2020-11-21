@@ -5,7 +5,7 @@ import ConversationsList from "./ConversationsList";
 import UsersSearch from "./UsersSearch";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const HomePage = ({ isAuthenticated, logout, user }) => {
+const HomePage = ({ isAuthenticated, logout, user, connection }) => {
   const [query, setQuery] = useState("");
 
   if (!isAuthenticated) {
@@ -14,11 +14,11 @@ const HomePage = ({ isAuthenticated, logout, user }) => {
 
   const conversations = user === undefined ? [] : user.conversations;
 
-  if (user === undefined) {
+  if (user === undefined || connection === undefined) {
     return (
       <div>
         <Navbar logout={logout} setQuery={setQuery} />
-        <CircularProgress/>
+        <CircularProgress />
       </div>
     );
   }
@@ -29,7 +29,7 @@ const HomePage = ({ isAuthenticated, logout, user }) => {
       {query === "" ? (
         <ConversationsList conversations={conversations} />
       ) : (
-        <UsersSearch query={query} user={user} />
+        <UsersSearch query={query} user={user} connection={connection} />
       )}
     </div>
   );
