@@ -3,13 +3,14 @@ import React, { useState, useEffect } from "react";
 import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import UndoIcon from "@material-ui/icons/Undo";
+import DoneIcon from "@material-ui/icons/Done";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
-import { inviteUser } from "../../Helpers/UserModyfing";
+import { inviteUser, deleteInvitation, acceptInvitation } from "../../Helpers/UserModyfing";
 
 const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -38,9 +39,12 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
 
   const handleDeletingInvitation = (foundUser) => {
     connection.invoke("deleteInvitations", [foundUser.id]);
-    const userCopy = { ...user };
-    userCopy.invited = userCopy.invited.filter((i) => i.id !== foundUser.id);
-    setUser(userCopy);
+    deleteInvitation({ invitedUser: foundUser, user, setUser });
+  };
+
+  const handleAcceptingInvitation = (foundUser) => {
+    connection.invoke("AddFriend", foundUser.id);
+    acceptInvitation({ inviter: foundUser, user, setUser });
   };
 
   const isInvited = (foundUser) =>
@@ -72,14 +76,21 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
                 >
                   <AddIcon />
                 </IconButton>
-              ) : (
+              ) : isInvited(foundUser) ? (
                 <IconButton
                   color="secondary"
                   onClick={() => handleDeletingInvitation(foundUser)}
                 >
                   <UndoIcon />
                 </IconButton>
-              )}
+              ) : isInviter(foundUser) ? (
+                <IconButton
+                  color="secondary"
+                  onClick={() => handleAcceptingInvitation(foundUser)}
+                >
+                  <DoneIcon />
+                </IconButton>
+              ) : null}
             </ListItemSecondaryAction>
           </ListItem>
         ))}

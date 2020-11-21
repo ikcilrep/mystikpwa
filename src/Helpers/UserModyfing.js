@@ -10,4 +10,17 @@ const receiveInvitation = ({ inviter, user, setUser }) => {
   setUser(userCopy);
 };
 
-export { inviteUser, receiveInvitation };
+const deleteInvitation = ({ invitedUser, user, setUser }) => {
+  const userCopy = { ...user };
+  userCopy.invited = userCopy.invited.filter((i) => i.id !== invitedUser.id);
+  setUser(userCopy);
+};
+
+const acceptInvitation = ({ inviter, user, setUser }) => {
+  const userCopy = { ...user };
+  userCopy.inviters = userCopy.inviters.filter((i) => i.id !== inviter.id);
+  userCopy.friends.push(inviter);
+  setUser(userCopy);
+};
+
+export { inviteUser, receiveInvitation, acceptInvitation, deleteInvitation };
