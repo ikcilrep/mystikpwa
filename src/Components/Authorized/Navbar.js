@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
+const Navbar = ({ notificationsNumber, logout }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -133,14 +133,6 @@ const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={newMessagesNumber} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={notificationsNumber} color="secondary">
             <NotificationsIcon />
@@ -159,10 +151,11 @@ const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
         </IconButton>
         <p>Profile</p>
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={logout}>
         <IconButton aria-label="logout" aria-controls="logout" color="inherit">
           <ExitToAppIcon />
         </IconButton>
+        <p>Log out</p>
       </MenuItem>
     </Menu>
   );
@@ -197,18 +190,12 @@ const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={newMessagesNumber} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
+            <IconButton aria-label="show new notifications" color="inherit">
               <Badge badgeContent={notificationsNumber} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
             <IconButton
-              edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
@@ -218,6 +205,7 @@ const Navbar = ({ newMessagesNumber, notificationsNumber, logout }) => {
               <AccountCircle />
             </IconButton>
             <IconButton
+              edge="end"
               aria-label="logout"
               aria-controls="logout"
               color="inherit"
