@@ -29,7 +29,12 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
     handleSearchRequest();
   }, [query, user]);
 
-  //const handleInvitation = (user) => {};
+  const handleInvitation = (foundUser) => {
+    connection.invoke("inviteFriends", [foundUser.id]);
+    const userCopy = { ...user };
+    userCopy.invited.push(foundUser);
+    setUser(userCopy);
+  };
 
   const isInvited = (searchedUser) =>
     user.invited.some((i) => i.id === searchedUser.id);
@@ -53,6 +58,7 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
               <IconButton
                 color="secondary"
                 disabled={!canUserBeInvited(foundUser)}
+                onClick={() => handleInvitation(foundUser)}
               >
                 <AddIcon />
               </IconButton>

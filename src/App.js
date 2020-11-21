@@ -96,6 +96,7 @@ function App() {
                 connection={connection}
                 logout={logout}
                 user={user}
+                setUser={setUser}
               />
             </Route>
           </Switch>
