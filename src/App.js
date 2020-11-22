@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMuiTheme } from "@material-ui/core/styles";
 import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
-import updateUser from "./Helpers/UpdateUser";
+import updateUser from "./Helpers/UserUpdating";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import { receiveInvitation, deleteInvitation } from "./ClientSideMethods";
