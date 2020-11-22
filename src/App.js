@@ -8,9 +8,9 @@ import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
 import { serverAddress } from "./settings.json";
-import { HubConnectionBuilder } from "@microsoft/signalr";
-//import { receiveInvitation } from "./Helpers/UserModyfing";
-//import { fetchUserPublicData } from "./Helpers/DataFetching";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { receiveInvitation } from "./Helpers/UserModyfing";
+import { fetchUserPublicData } from "./Helpers/DataFetching";
 
 const theme = createMuiTheme({
   palette: {
@@ -76,16 +76,18 @@ function App() {
         .withUrl(`${serverAddress}/chat`, {
           accessTokenFactory: () => user.token,
         })
+        .configureLogging(LogLevel.Trace)
         .build();
+
+      connection.on("ReceiveInvitation", (inviterId) => {
+        fetchUserPublicData(inviterId, user.token).then((inviter) => {
+          receiveInvitation({ inviter, user, setUser });
+        });
+      });
 
       connection.start().then(() => {
         setConnection(connection);
       });
-      /* connection.on("receiveInvitation", (inviterId) => {
-        const inviter = fetchUserPublicData(inviterId, user.token);
-        receiveInvitation({ inviter, user, setUser });
-      });
- */
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
