@@ -4,17 +4,14 @@ import IconButton from "@material-ui/core/IconButton";
 import AddIcon from "@material-ui/icons/Add";
 import UndoIcon from "@material-ui/icons/Undo";
 import DoneIcon from "@material-ui/icons/Done";
+import DeleteIcon from "@material-ui/icons/Delete";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
-import {
-  deleteInvited,
-  addInvited,
-  turnInviterIntoFriend,
-} from "../../Helpers/UserModyfing";
+import User from "../../Helpers/UserModyfing";
 
 const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -38,17 +35,22 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
 
   const handleInviting = (foundUser) => {
     connection.invoke("InviteFriends", [foundUser.id]);
-    addInvited({ invitedUser: foundUser, user, setUser });
+    User.addInvited({ invitedUser: foundUser, user, setUser });
   };
 
   const handleDeletingInvitation = (foundUser) => {
     connection.invoke("DeleteInvitations", [foundUser.id]);
-    deleteInvited({ invitedUser: foundUser, user, setUser });
+    User.deleteInvited({ invitedUser: foundUser, user, setUser });
   };
 
   const handleAcceptingInvitation = (foundUser) => {
     connection.invoke("AddFriend", foundUser.id);
-    turnInviterIntoFriend({ inviter: foundUser, user, setUser });
+    User.turnInviterIntoFriend({ inviter: foundUser, user, setUser });
+  };
+
+  const handleDeletingFriend = (foundUser) => {
+    connection.invoke("DeleteFriends", [foundUser.id]);
+    User.deleteFriend({ friend: foundUser, user, setUser });
   };
 
   const isInvited = (foundUser) =>
@@ -93,6 +95,13 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
                   onClick={() => handleAcceptingInvitation(foundUser)}
                 >
                   <DoneIcon />
+                </IconButton>
+              ) : isFriend(foundUser) ? (
+                <IconButton
+                  color="secondary"
+                  onClick={() => handleDeletingFriend(foundUser)}
+                >
+                  <DeleteIcon />
                 </IconButton>
               ) : null}
             </ListItemSecondaryAction>

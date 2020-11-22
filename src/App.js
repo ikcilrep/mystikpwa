@@ -13,6 +13,7 @@ import {
   receiveInvitation,
   deleteInvitation,
   addFriend,
+  deleteFriend,
 } from "./ClientSideMethods";
 const theme = createMuiTheme({
   palette: {
@@ -84,6 +85,7 @@ function App() {
       connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
       connection.on("DeleteInvitation", deleteInvitation(user, setUser));
       connection.on("AddFriend", addFriend(user, setUser));
+      connection.on("DeleteFriend", deleteFriend(user, setUser));
 
       connection.start().then(() => {
         setConnection(connection);
