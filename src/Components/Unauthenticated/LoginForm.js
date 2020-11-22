@@ -79,6 +79,7 @@ const LoginForm = ({ handleAuthentication, setRedirectPath }) => {
         required
         id="outlined-basic"
         variant="outlined"
+        color="secondary"
         label="Username"
         value={username}
         error={usernameValidation.error}
@@ -90,6 +91,7 @@ const LoginForm = ({ handleAuthentication, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        color="secondary"
         variant="outlined"
         label="Password"
         type="password"

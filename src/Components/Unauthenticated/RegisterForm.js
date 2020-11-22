@@ -106,6 +106,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        color="secondary"
         variant="outlined"
         label="Nickname"
         value={nickname}
@@ -118,6 +119,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        color="secondary"
         variant="outlined"
         label="Username"
         value={username}
@@ -130,6 +132,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        color="secondary"
         variant="outlined"
         label="Password"
         type="password"
@@ -144,6 +147,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
       <TextField
         required
         id="outlined-basic"
+        color="secondary"
         variant="outlined"
         label="Repeat password"
         type="password"
