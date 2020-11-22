@@ -10,7 +10,11 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import axios from "axios";
 import { serverAddress } from "../../settings.json";
-import { inviteUser, deleteInvitation, acceptInvitation } from "../../Helpers/UserModyfing";
+import {
+  deleteInvited,
+  addInvited,
+  turnInviterIntoFriend,
+} from "../../Helpers/UserModyfing";
 
 const UsersSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
@@ -34,17 +38,17 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
 
   const handleInviting = (foundUser) => {
     connection.invoke("inviteFriends", [foundUser.id]);
-    inviteUser({ invitedUser: foundUser, user, setUser });
+    addInvited({ invitedUser: foundUser, user, setUser });
   };
 
   const handleDeletingInvitation = (foundUser) => {
     connection.invoke("deleteInvitations", [foundUser.id]);
-    deleteInvitation({ invitedUser: foundUser, user, setUser });
+    deleteInvited({ invitedUser: foundUser, user, setUser });
   };
 
   const handleAcceptingInvitation = (foundUser) => {
     connection.invoke("AddFriend", foundUser.id);
-    acceptInvitation({ inviter: foundUser, user, setUser });
+    turnInviterIntoFriend({ inviter: foundUser, user, setUser });
   };
 
   const isInvited = (foundUser) =>

@@ -9,7 +9,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import { receiveInvitation } from "./Helpers/UserModyfing";
+import { addInviter } from "./Helpers/UserModyfing";
 import { fetchUserPublicData } from "./Helpers/DataFetching";
 
 const theme = createMuiTheme({
@@ -81,7 +81,7 @@ function App() {
 
       connection.on("ReceiveInvitation", (inviterId) => {
         fetchUserPublicData(inviterId, user.token).then((inviter) => {
-          receiveInvitation({ inviter, user, setUser });
+          addInviter({ inviter, user, setUser });
         });
       });
 
