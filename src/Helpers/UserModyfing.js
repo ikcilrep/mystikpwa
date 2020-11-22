@@ -12,29 +12,32 @@ const addInviter = ({ inviter, user, setUser }) => {
 
 const deleteInvited = ({ invitedUser, user, setUser }) => {
   const userCopy = { ...user };
-  userCopy.invited = userCopy.invited.filter((i) => i.id !== invitedUser.id);
+  userCopy.invited = removeEntityWithId(userCopy.invited, invitedUser.id);;
   setUser(userCopy);
 };
 
 const deleteInviter = ({ inviterId, user, setUser }) => {
   const userCopy = { ...user };
-  userCopy.inviters = userCopy.inviters.filter((i) => i.id !== inviterId);
+  userCopy.inviters = removeEntityWithId(userCopy.inviters, inviterId);;
   setUser(userCopy);
 };
 
 const turnInviterIntoFriend = ({ inviter, user, setUser }) => {
   const userCopy = { ...user };
-  userCopy.inviters = userCopy.inviters.filter((i) => i.id !== inviter.id);
+  userCopy.inviters = removeEntityWithId(userCopy.inviters, inviter.id);;
   userCopy.friends.push(inviter);
   setUser(userCopy);
 };
 
 const turnInvitedIntoFriend = ({ invited, user, setUser }) => {
   const userCopy = { ...user };
-  userCopy.invited = userCopy.invited.filter((i) => i.id !== invited.id);
+  userCopy.invited = removeEntityWithId(userCopy.invited, invited.id);
   userCopy.friends.push(invited);
   setUser(userCopy);
 };
+
+const removeEntityWithId = (entities, id) =>
+  entities.filter((e) => e.id !== id);
 
 export {
   addInvited,
