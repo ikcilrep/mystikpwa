@@ -179,7 +179,7 @@ const Navbar = ({ notificationsNumber, logout, setQuery }) => {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search friends…"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
