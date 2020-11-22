@@ -37,12 +37,12 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
   }, [query, user]);
 
   const handleInviting = (foundUser) => {
-    connection.invoke("inviteFriends", [foundUser.id]);
+    connection.invoke("InviteFriends", [foundUser.id]);
     addInvited({ invitedUser: foundUser, user, setUser });
   };
 
   const handleDeletingInvitation = (foundUser) => {
-    connection.invoke("deleteInvitations", [foundUser.id]);
+    connection.invoke("DeleteInvitations", [foundUser.id]);
     deleteInvited({ invitedUser: foundUser, user, setUser });
   };
 
