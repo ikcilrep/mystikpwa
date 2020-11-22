@@ -29,4 +29,18 @@ const turnInviterIntoFriend = ({ inviter, user, setUser }) => {
   setUser(userCopy);
 };
 
-export { addInvited, addInviter, turnInviterIntoFriend, deleteInvited, deleteInviter };
+const turnInvitedIntoFriend = ({ invited, user, setUser }) => {
+  const userCopy = { ...user };
+  userCopy.invited = userCopy.invited.filter((i) => i.id !== invited.id);
+  userCopy.friends.push(invited);
+  setUser(userCopy);
+};
+
+export {
+  addInvited,
+  addInviter,
+  turnInviterIntoFriend,
+  turnInvitedIntoFriend,
+  deleteInvited,
+  deleteInviter,
+};

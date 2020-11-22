@@ -9,7 +9,11 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UserUpdating";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
-import { receiveInvitation, deleteInvitation } from "./ClientSideMethods";
+import {
+  receiveInvitation,
+  deleteInvitation,
+  addFriend,
+} from "./ClientSideMethods";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -74,11 +78,12 @@ function App() {
         .withUrl(`${serverAddress}/chat`, {
           accessTokenFactory: () => user.token,
         })
-//        .configureLogging(LogLevel.Trace)
+        //        .configureLogging(LogLevel.Trace)
         .build();
 
       connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
       connection.on("DeleteInvitation", deleteInvitation(user, setUser));
+      connection.on("AddFriend", addFriend(user, setUser));
 
       connection.start().then(() => {
         setConnection(connection);
