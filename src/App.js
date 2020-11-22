@@ -73,6 +73,20 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, doRememberMe]);
 
+  const addSignalrListeners = (connection) => {
+    connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
+    connection.on("DeleteInvitation", deleteInvitation(user, setUser));
+    connection.on("AddFriend", addFriend(user, setUser));
+    connection.on("DeleteFriend", deleteFriend(user, setUser));
+  };
+
+  const removeSingalrListeners = () => {
+    connection.off("ReceiveInvitation");
+    connection.off("DeleteInvitation");
+    connection.off("AddFriend");
+    connection.off("DeleteFriend");
+  };
+
   useEffect(() => {
     if (user !== undefined && connection === undefined) {
       const connection = new HubConnectionBuilder()
@@ -81,15 +95,15 @@ function App() {
         })
         //        .configureLogging(LogLevel.Trace)
         .build();
-
-      connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
-      connection.on("DeleteInvitation", deleteInvitation(user, setUser));
-      connection.on("AddFriend", addFriend(user, setUser));
-      connection.on("DeleteFriend", deleteFriend(user, setUser));
-
+      addSignalrListeners(connection);
       connection.start().then(() => {
         setConnection(connection);
       });
+    }
+
+    if (connection !== undefined) {
+      removeSingalrListeners();
+      addSignalrListeners(connection);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
