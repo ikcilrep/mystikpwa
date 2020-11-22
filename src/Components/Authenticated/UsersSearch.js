@@ -30,7 +30,7 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
         },
       });
 
-      setUsers(response.data);
+      setUsers(response.data.filter((u) => u.id !== user.id));
     };
 
     handleSearchRequest();
