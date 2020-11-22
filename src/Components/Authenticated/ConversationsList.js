@@ -2,6 +2,17 @@ import React from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+  fab: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+}));
 
 const ConversationItem = ({ conversation }) => {
   return (
@@ -12,6 +23,7 @@ const ConversationItem = ({ conversation }) => {
 };
 
 const ConversationsList = ({ user, conversations }) => {
+  const classes = useStyles();
   return (
     <div>
       <h1>Hello, {user.nickname}!</h1>
@@ -20,6 +32,9 @@ const ConversationsList = ({ user, conversations }) => {
           <ConversationItem conversation={c} />
         ))}
       </List>
+      <Fab color="secondary" aria-label="add" className={classes.fab}>
+        <AddIcon />
+      </Fab>
     </div>
   );
 };
