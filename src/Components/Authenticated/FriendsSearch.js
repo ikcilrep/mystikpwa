@@ -13,7 +13,7 @@ import axios from "axios";
 import { serverAddress } from "../../settings.json";
 import User from "../../Helpers/UserModyfing";
 
-const UsersSearch = ({ user, query, connection, setUser }) => {
+const FriendsSearch = ({ user, query, connection, setUser }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -112,4 +112,4 @@ const UsersSearch = ({ user, query, connection, setUser }) => {
   );
 };
 
-export default UsersSearch;
+export default FriendsSearch;

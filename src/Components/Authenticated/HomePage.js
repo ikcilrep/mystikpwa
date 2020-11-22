@@ -2,7 +2,7 @@ import Navbar from "./Navbar";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import ConversationsList from "./ConversationsList";
-import UsersSearch from "./UsersSearch";
+import FriendsSearch from "./FriendsSearch";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
@@ -29,7 +29,12 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
       {query === "" ? (
         <ConversationsList conversations={conversations} user={user} />
       ) : (
-        <UsersSearch query={query} user={user} connection={connection} setUser={setUser} />
+        <FriendsSearch
+          query={query}
+          user={user}
+          connection={connection}
+          setUser={setUser}
+        />
       )}
     </div>
   );
