@@ -14,7 +14,7 @@ const ConversationItem = ({ conversation }) => {
 const ConversationsList = ({ user, conversations }) => {
   return (
     <div>
-      <h1>Conversations</h1>
+      <h1>Hello, {user.nickname}!</h1>
       <List>
         {conversations.map((c) => (
           <ConversationItem conversation={c} />

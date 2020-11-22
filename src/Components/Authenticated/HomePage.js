@@ -27,7 +27,7 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
     <div>
       <Navbar logout={logout} setQuery={setQuery} />
       {query === "" ? (
-        <ConversationsList conversations={conversations} />
+        <ConversationsList conversations={conversations} user={user} />
       ) : (
         <UsersSearch query={query} user={user} connection={connection} setUser={setUser} />
       )}
