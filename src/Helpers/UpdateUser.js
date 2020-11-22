@@ -26,16 +26,21 @@ const removeEntitiesWithIds = (user, idsObject) => {
   user.invited = removeIds(user.invited, idsObject.invitedIds);
   user.inviters = removeIds(user.inviters, idsObject.invitersIds);
   user.conversations = removeIds(user.conversations, idsObject.conversationIds);
-  user.conversations.forEach((conversation) => {
-    conversation.members = removeIds(
-      conversation.members,
-      idsObject.conversationMembersIds
-    );
-    conversation.managers = removeIds(
-      conversation.managers,
-      idsObject.conversationManagersIds
-    );
-  });
+  removeConversationsRelatedUsersWithIds(user.conversations, idsObject);
+};
+
+const removeConversationsRelatedUsersWithIds = (conversations, idsObject) => {
+  conversations.forEach(removeConversationRelatedUsersWithIds(idsObject));
+};
+const removeConversationRelatedUsersWithIds = (idsObject) => (conversation) => {
+  conversation.members = removeIds(
+    conversation.members,
+    idsObject.conversationMembersIds
+  );
+  conversation.managers = removeIds(
+    conversation.managers,
+    idsObject.conversationManagersIds
+  );
 };
 
 const getCommonConversations = (user1, user2) =>
@@ -93,7 +98,7 @@ const concatUsers = (user1, user2) => {
   return concatedUser;
 };
 
-const removeDeletedEntities = async (user) => {
+const deleteRemovedEntities = async (user) => {
   const response = await axios.post(
     `${serverAddress}/users/removed/${user.id}`,
     userToIdsObject(user),
@@ -132,7 +137,7 @@ const fetchNewEntities = async (user, updateTime) => {
 const updateUser = async (user) => {
   const updateTime = new Date().toISOString();
   if (user.lastUpdate !== undefined) {
-    await removeDeletedEntities(user);
+    await deleteRemovedEntities(user);
   }
   return await fetchNewEntities(user, updateTime);
 };
