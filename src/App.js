@@ -9,9 +9,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import { addInviter } from "./Helpers/UserModyfing";
-import { fetchUserPublicData } from "./Helpers/DataFetching";
-
+import { receiveInvitation } from "./ClientSideMethods";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -79,11 +77,7 @@ function App() {
         .configureLogging(LogLevel.Trace)
         .build();
 
-      connection.on("ReceiveInvitation", (inviterId) => {
-        fetchUserPublicData(inviterId, user.token).then((inviter) => {
-          addInviter({ inviter, user, setUser });
-        });
-      });
+      connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
 
       connection.start().then(() => {
         setConnection(connection);
