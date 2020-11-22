@@ -8,7 +8,7 @@ import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UserUpdating";
 import { serverAddress } from "./settings.json";
-import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 import { receiveInvitation, deleteInvitation } from "./ClientSideMethods";
 const theme = createMuiTheme({
   palette: {
@@ -74,7 +74,7 @@ function App() {
         .withUrl(`${serverAddress}/chat`, {
           accessTokenFactory: () => user.token,
         })
-        .configureLogging(LogLevel.Trace)
+//        .configureLogging(LogLevel.Trace)
         .build();
 
       connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
