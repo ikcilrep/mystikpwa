@@ -16,6 +16,12 @@ const deleteInvited = ({ invitedUser, user, setUser }) => {
   setUser(userCopy);
 };
 
+const deleteInviter = ({ inviterId, user, setUser }) => {
+  const userCopy = { ...user };
+  userCopy.inviters = userCopy.inviters.filter((i) => i.id !== inviterId);
+  setUser(userCopy);
+};
+
 const turnInviterIntoFriend = ({ inviter, user, setUser }) => {
   const userCopy = { ...user };
   userCopy.inviters = userCopy.inviters.filter((i) => i.id !== inviter.id);
@@ -23,4 +29,4 @@ const turnInviterIntoFriend = ({ inviter, user, setUser }) => {
   setUser(userCopy);
 };
 
-export { addInvited, addInviter , turnInviterIntoFriend, deleteInvited };
+export { addInvited, addInviter, turnInviterIntoFriend, deleteInvited, deleteInviter };

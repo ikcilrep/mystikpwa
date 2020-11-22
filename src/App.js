@@ -9,7 +9,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UpdateUser";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import { receiveInvitation } from "./ClientSideMethods";
+import { receiveInvitation, deleteInvitation } from "./ClientSideMethods";
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -78,6 +78,7 @@ function App() {
         .build();
 
       connection.on("ReceiveInvitation", receiveInvitation(user, setUser));
+      connection.on("DeleteInvitation", deleteInvitation(user, setUser));
 
       connection.start().then(() => {
         setConnection(connection);
