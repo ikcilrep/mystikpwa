@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ notificationsNumber, logout, setQuery }) => {
+const SearchNavbar = ({ notificationsNumber, logout, setQuery }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -224,4 +224,4 @@ const Navbar = ({ notificationsNumber, logout, setQuery }) => {
   );
 };
 
-export default Navbar;
+export default SearchNavbar;

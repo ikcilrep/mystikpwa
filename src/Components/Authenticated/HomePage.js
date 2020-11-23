@@ -1,9 +1,8 @@
-import Navbar from "./Navbar";
+import SearchNavbar from "./SearchNavbar";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import ConversationsList from "./ConversationsList";
 import FriendsSearch from "./FriendsSearch";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
@@ -27,7 +26,7 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
 
   return (
     <div>
-      <Navbar logout={logout} setQuery={setQuery} />
+      <SearchNavbar logout={logout} setQuery={setQuery} />
       <Switch>
         <Route path={match.path}>
           {query === "" ? (
