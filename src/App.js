@@ -38,6 +38,7 @@ function App() {
 
   const [user, setUser] = useState(undefined);
   const [doRememberMe, setRememberMe] = useState(false);
+  const [alert, setAlert] = useState("");
 
   const logout = () => {
     removeCookie("user");
@@ -134,6 +135,8 @@ function App() {
                 logout={logout}
                 user={user}
                 setUser={setUser}
+                alert={alert}
+                setAlert={setAlert}
               />
             </Route>
           </Switch>

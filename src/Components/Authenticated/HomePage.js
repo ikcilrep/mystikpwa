@@ -5,7 +5,8 @@ import ConversationsList from "./ConversationsList";
 import FriendsSearch from "./FriendsSearch";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
-const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
+import CollapsingAlert from "../Helpers/CollapsingAlert";
+const HomePage = ({ isAuthenticated, logout, user, connection, setUser, alert, setAlert }) => {
   let match = useRouteMatch();
   const [query, setQuery] = useState("");
   const [redirectPath, setRedirectPath] = useState(undefined);
@@ -26,6 +27,7 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
 
   return (
     <div>
+      <CollapsingAlert text={alert} onClose={() => setAlert("")} />
       <SearchNavbar logout={logout} setQuery={setQuery} />
       <Switch>
         <Route path={match.path}>
