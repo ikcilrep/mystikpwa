@@ -48,12 +48,12 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  if (user === undefined) {
-    return <LoadingPage />;
-  }
-
   if (!isAuthenticated) {
     return <Redirect to="/authenticate" />;
+  }
+
+  if (user === undefined) {
+    return <LoadingPage />;
   }
 
   return (
