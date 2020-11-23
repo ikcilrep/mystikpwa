@@ -2,13 +2,13 @@ import Navbar from "./Navbar";
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import ConversationsList from "./ConversationsList";
-import ConversationCreator from "./ConversationCreator";
 import FriendsSearch from "./FriendsSearch";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
   let match = useRouteMatch();
   const [query, setQuery] = useState("");
+  const [redirectPath, setRedirectPath] = useState(undefined);
 
   if (!isAuthenticated) {
     return <Redirect to="/authenticate" />;
@@ -25,16 +25,21 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
     );
   }
 
+  if (redirectPath !== undefined) {
+    return <Redirect to={redirectPath} />;
+  }
+
   return (
     <div>
       <Navbar logout={logout} setQuery={setQuery} />
       <Switch>
-        <Route path={`${match.path}conversations/create`}>
-          <ConversationCreator user={user} />
-        </Route>
         <Route path={match.path}>
           {query === "" ? (
-            <ConversationsList conversations={conversations} user={user} />
+            <ConversationsList
+              conversations={conversations}
+              user={user}
+              setRedirectPath={setRedirectPath}
+            />
           ) : (
             <FriendsSearch
               query={query}

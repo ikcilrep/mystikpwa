@@ -23,13 +23,8 @@ const ConversationItem = ({ conversation }) => {
   );
 };
 
-const ConversationsList = ({ user, conversations }) => {
+const ConversationsList = ({ user, conversations, setRedirectPath }) => {
   const classes = useStyles();
-
-  const [redirectPath, setRedirectPath] = useState(undefined);
-  if (redirectPath !== undefined) {
-    return <Redirect to={redirectPath} />;
-  }
 
   return (
     <div>

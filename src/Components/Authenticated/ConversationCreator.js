@@ -8,8 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import { Redirect } from "react-router-dom";
+import Navbar from "./Navbar";
 
-const ConversationCreator = ({ user }) => {
+const ConversationCreator = ({ user, isAuthenticated, logout }) => {
   const [name, setName] = useState("");
 
   const [invitedFriends, setInvitedFriends] = useState(undefined);
@@ -21,29 +23,46 @@ const ConversationCreator = ({ user }) => {
   };
 
   useEffect(() => {
-    const invitedFriendsTmp = {};
-    if (invitedFriends === undefined) {
-      user.friends.forEach((friend) => {
-        invitedFriendsTmp[friend.id] = false;
-      });
-    } else {
-      user.friends
-        .filter((f) => !(f.id in invitedFriends))
-        .forEach((newFriend) => {
-          invitedFriendsTmp[newFriend.id] = false;
+    if (user !== undefined) {
+      const invitedFriendsTmp = {};
+      if (invitedFriends === undefined) {
+        user.friends.forEach((friend) => {
+          invitedFriendsTmp[friend.id] = false;
         });
+      } else {
+        user.friends
+          .filter((f) => !(f.id in invitedFriends))
+          .forEach((newFriend) => {
+            invitedFriendsTmp[newFriend.id] = false;
+          });
 
-      Object.keys(invitedFriendsTmp).forEach((friendId) => {
-        if (user.friends.every((f) => f.id !== friendId))
-          delete invitedFriends[friendId];
-      });
+        Object.keys(invitedFriendsTmp).forEach((friendId) => {
+          if (user.friends.every((f) => f.id !== friendId))
+            delete invitedFriends[friendId];
+        });
+      }
+
+      setInvitedFriends(invitedFriendsTmp);
     }
-
-    setInvitedFriends(invitedFriendsTmp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
+
+  if (user === undefined) {
+    return (
+      <div>
+        <Navbar logout={logout} />
+        <CircularProgress />
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Redirect to="/authenticate" />;
+  }
+
   return (
     <div>
+      <Navbar logout={logout} />
       <center>
         <Grid container>
           <Grid item xs={12}>

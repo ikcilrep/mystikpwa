@@ -9,12 +9,14 @@ import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UserUpdating";
 import { serverAddress } from "./settings.json";
 import { HubConnectionBuilder } from "@microsoft/signalr";
+import ConversationCreator from "./Components/Authenticated/ConversationCreator";
 import {
   receiveInvitation,
   deleteInvitation,
   addFriend,
   deleteFriend,
 } from "./ClientSideMethods";
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -113,6 +115,12 @@ function App() {
       <Router>
         <div>
           <Switch>
+            <Route path={`/conversations/create`}>
+              <ConversationCreator
+                user={user}
+                isAuthenticated={isAuthenticated}
+              />
+            </Route>
             <Route path="/authenticate">
               <AuthenticationPage
                 handleAuthentication={handleAuthentication}
