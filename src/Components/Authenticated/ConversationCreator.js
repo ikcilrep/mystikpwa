@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
 import Checkbox from "@material-ui/core/Checkbox";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "@material-ui/core/List";
@@ -11,9 +11,18 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
 import LoadingPage from "./LoadingPage";
+import { validateRepeatedPassword } from "../../Helpers/Validation";
+import DoneIcon from "@material-ui/icons/Done";
 
 const ConversationCreator = ({ user, isAuthenticated, logout }) => {
-  const [, setName] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [repeatedPassword, setRepeatedPassword] = useState("");
+  const [repeatedPasswordValidation, setRepeatedPasswordValidation] = useState({
+    error: false,
+    message: "",
+  });
 
   const [invitedFriends, setInvitedFriends] = useState(undefined);
   const [redirectPath, setRedirectPath] = useState(undefined);
@@ -61,6 +70,26 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     return <Redirect to={redirectPath} />;
   }
 
+  const onChangePassword = (e) => {
+    const password = e.target.value;
+    setPassword(password);
+    setRepeatedPasswordValidation(
+      validateRepeatedPassword(password, repeatedPassword)
+    );
+  };
+
+  const onChangeRepeatedPassword = (e) => {
+    const repeatedPassword = e.target.value;
+    setRepeatedPassword(repeatedPassword);
+    setRepeatedPasswordValidation(
+      validateRepeatedPassword(password, repeatedPassword)
+    );
+  };
+
+  const isThereAValidationError = () =>
+    name === "" ||
+    password === "" ||
+    validateRepeatedPassword(password, repeatedPassword).error;
   return (
     <div>
       <Navbar logout={logout} handleHomeRedirect={() => setRedirectPath("/")} />
@@ -74,11 +103,42 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
               variant="outlined"
               onChange={(e) => setName(e.target.value)}
               label="Name"
+              value={name}
               color="secondary"
             />
           </Grid>
-          <br />
-          <br />
+
+          <Grid item xs={12}>
+            <TextField
+              required
+              color="secondary"
+              variant="outlined"
+              label="Password"
+              type="password"
+              autoComplete="current-password"
+              value={password}
+              onChange={onChangePassword}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              required
+              id="outlined-basic"
+              color="secondary"
+              variant="outlined"
+              label="Repeat password"
+              type="password"
+              autoComplete="current-password"
+              value={repeatedPassword}
+              error={repeatedPasswordValidation.error}
+              onChange={onChangeRepeatedPassword}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <h4>{repeatedPasswordValidation.message}</h4>
+          </Grid>
+
           <Grid item xs={12}>
             {user.friends.length > 0 ? (
               <h2>Invite friends!</h2>
@@ -118,9 +178,14 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
           </Grid>
           <Grid item xs={3}></Grid>
           <Grid item xs={12}>
-            <Button variant="contained" color="secondary">
-              Create
-            </Button>
+            <IconButton
+              disabled={isThereAValidationError()}
+              variant="contained"
+              color="secondary"
+              onClick={() => {}}
+            >
+              <DoneIcon />
+            </IconButton>{" "}
           </Grid>
         </Grid>
       </center>
