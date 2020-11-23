@@ -5,6 +5,7 @@ import ConversationsList from "./ConversationsList";
 import FriendsSearch from "./FriendsSearch";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
+import LoadingPage from "./LoadingPage";
 const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
   let match = useRouteMatch();
   const [query, setQuery] = useState("");
@@ -17,12 +18,7 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser }) => {
   const conversations = user === undefined ? [] : user.conversations;
 
   if (user === undefined || connection === undefined) {
-    return (
-      <div>
-        <Navbar logout={logout} setQuery={setQuery} />
-        <CircularProgress />
-      </div>
-    );
+    return <LoadingPage />;
   }
 
   if (redirectPath !== undefined) {

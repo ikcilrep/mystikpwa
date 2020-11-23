@@ -10,9 +10,10 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { Redirect } from "react-router-dom";
 import Navbar from "./Navbar";
+import LoadingPage from "./LoadingPage";
 
 const ConversationCreator = ({ user, isAuthenticated, logout }) => {
-  const [name, setName] = useState("");
+  const [, setName] = useState("");
 
   const [invitedFriends, setInvitedFriends] = useState(undefined);
 
@@ -48,12 +49,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
   }, [user]);
 
   if (user === undefined) {
-    return (
-      <div>
-        <Navbar logout={logout} />
-        <CircularProgress />
-      </div>
-    );
+    return <LoadingPage />;
   }
 
   if (!isAuthenticated) {
