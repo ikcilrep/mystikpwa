@@ -57,6 +57,9 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
     const password = e.target.value;
     setPassword(password);
     setPasswordValidation(validatePassword(password));
+    setRepeatedPasswordValidation(
+      validateRepeatedPassword(password, repeatedPassword)
+    );
   };
 
   const onChangeRepeatedPassword = (e) => {
@@ -173,7 +176,7 @@ const RegisterForm = ({ setAlert, setRedirectPath }) => {
         color="primary"
         onClick={() => setRedirectPath("/Authenticate/login")}
       >
-        Or maybe login 
+        Or maybe login
       </Button>
     </div>
   );
