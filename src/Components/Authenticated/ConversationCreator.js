@@ -9,7 +9,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { Redirect } from "react-router-dom";
-import SearchNavbar from "./SearchNavbar";
+import Navbar from "./Navbar";
 import LoadingPage from "./LoadingPage";
 
 const ConversationCreator = ({ user, isAuthenticated, logout }) => {
@@ -58,7 +58,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
 
   return (
     <div>
-      <SearchNavbar logout={logout} />
+      <Navbar logout={logout} />
       <center>
         <Grid container>
           <Grid item xs={12}>
