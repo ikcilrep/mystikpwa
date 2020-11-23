@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import MoreIcon from "@material-ui/icons/MoreVert";
+import HomeIcon from "@material-ui/icons/Home";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navbar = ({ notificationsNumber, logout }) => {
+const Navbar = ({ notificationsNumber, logout, handleHomeRedirect }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -95,10 +95,6 @@ const Navbar = ({ notificationsNumber, logout }) => {
   const handleMenuClose = () => {
     setAnchorEl(null);
     handleMobileMenuClose();
-  };
-
-  const handleMobileMenuOpen = (event) => {
-    setMobileMoreAnchorEl(event.currentTarget);
   };
 
   const menuId = "primary-search-account-menu";
@@ -160,6 +156,15 @@ const Navbar = ({ notificationsNumber, logout }) => {
     <div className={classes.grow}>
       <AppBar position="static">
         <Toolbar>
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={handleHomeRedirect}
+          >
+            <HomeIcon />
+          </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
             Mystik
           </Typography>
@@ -194,10 +199,10 @@ const Navbar = ({ notificationsNumber, logout }) => {
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
+              onClick={handleHomeRedirect}
               color="inherit"
             >
-              <MoreIcon />
+              <HomeIcon />
             </IconButton>
           </div>
         </Toolbar>

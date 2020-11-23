@@ -16,6 +16,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
   const [, setName] = useState("");
 
   const [invitedFriends, setInvitedFriends] = useState(undefined);
+  const [redirectPath, setRedirectPath] = useState(undefined);
 
   const setInviteFriend = (friendId, doInvite) => {
     const invitedFriendsCopy = { ...invitedFriends };
@@ -56,9 +57,13 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     return <LoadingPage />;
   }
 
+  if (redirectPath !== undefined) {
+    return <Redirect to={redirectPath} />;
+  }
+
   return (
     <div>
-      <Navbar logout={logout} />
+      <Navbar logout={logout} handleHomeRedirect={() => setRedirectPath("/")} />
       <center>
         <Grid container>
           <Grid item xs={12}>
