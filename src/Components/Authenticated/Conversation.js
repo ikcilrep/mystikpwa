@@ -79,7 +79,7 @@ const Conversation = ({
       <Navbar logout={logout} handleHomeRedirect={handleHomeRedirect} />
       <center>
         {isPasswordCorrect ? (
-          <Chat conversation={conversation} password={password} />
+          <Chat conversation={conversation} user={user} password={password} />
         ) : (
           <>
             <h1>{conversation.name}</h1>
