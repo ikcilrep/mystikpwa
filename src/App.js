@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HomePage from "./Components/Authenticated/HomePage";
+import Conversation from "./Components/Authenticated/Conversation";
 import AuthenticationPage from "./Components/Unauthenticated/AuthenticationPage";
 import { useCookies } from "react-cookie";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -40,6 +41,8 @@ function App() {
   const [user, setUser] = useState(undefined);
   const [doRememberMe, setRememberMe] = useState(false);
   const [alert, setAlert] = useState("");
+
+  const [currentConversationId, setCurrentConversationId] = useState(undefined);
 
   const logout = () => {
     removeCookie("user");
@@ -119,6 +122,15 @@ function App() {
       <Router>
         <div>
           <Switch>
+            <Route path="/conversation">
+              <Conversation
+                conversationId={currentConversationId}
+                isAuthenticated={isAuthenticated}
+                user={user}
+                connection={connection}
+                logout={logout}
+              />
+            </Route>
             <Route path={`/conversations/create`}>
               <ConversationCreator
                 user={user}
@@ -141,6 +153,7 @@ function App() {
                 setUser={setUser}
                 alert={alert}
                 setAlert={setAlert}
+                setCurrentConversationId={setCurrentConversationId}
               />
             </Route>
           </Switch>

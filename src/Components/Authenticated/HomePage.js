@@ -6,7 +6,16 @@ import FriendsSearch from "./FriendsSearch";
 import { Switch, Route, useRouteMatch } from "react-router-dom";
 import LoadingPage from "./LoadingPage";
 import CollapsingAlert from "../Helpers/CollapsingAlert";
-const HomePage = ({ isAuthenticated, logout, user, connection, setUser, alert, setAlert }) => {
+const HomePage = ({
+  isAuthenticated,
+  logout,
+  user,
+  connection,
+  setUser,
+  alert,
+  setAlert,
+  setCurrentConversationId,
+}) => {
   let match = useRouteMatch();
   const [query, setQuery] = useState("");
   const [redirectPath, setRedirectPath] = useState(undefined);
@@ -36,6 +45,7 @@ const HomePage = ({ isAuthenticated, logout, user, connection, setUser, alert, s
               conversations={conversations}
               user={user}
               setRedirectPath={setRedirectPath}
+              setCurrentConversationId={setCurrentConversationId}
             />
           ) : (
             <FriendsSearch
