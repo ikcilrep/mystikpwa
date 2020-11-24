@@ -10,6 +10,12 @@ const addInviter = ({ inviter, user, setUser }) => {
   setUser(userCopy);
 };
 
+const addConversation = ({ conversation, user, setUser }) => {
+  const userCopy = { ...user };
+  userCopy.conversations.push(conversation);
+  setUser(userCopy);
+};
+
 const deleteInvited = ({ invitedUser, user, setUser }) => {
   const userCopy = { ...user };
   userCopy.invited = removeEntityWithId(userCopy.invited, invitedUser.id);
@@ -48,6 +54,7 @@ const removeEntityWithId = (entities, id) =>
 const User = {
   addInvited,
   addInviter,
+  addConversation,
   turnInviterIntoFriend,
   turnInvitedIntoFriend,
   deleteInvited,

@@ -23,4 +23,14 @@ const deleteFriend = (user, setUser) => (friendId) => {
   });
 };
 
-export { receiveInvitation, deleteInvitation, addFriend, deleteFriend };
+const joinConversation = (user, setUser) => (conversation) => {
+  User.addConversation({ conversation, user, setUser });
+};
+
+export {
+  receiveInvitation,
+  deleteInvitation,
+  addFriend,
+  deleteFriend,
+  joinConversation,
+};

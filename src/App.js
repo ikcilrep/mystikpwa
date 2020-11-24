@@ -15,6 +15,7 @@ import {
   deleteInvitation,
   addFriend,
   deleteFriend,
+  joinConversation
 } from "./ClientSideMethods";
 
 const theme = createMuiTheme({
@@ -81,7 +82,7 @@ function App() {
     connection.on("DeleteInvitation", deleteInvitation(user, setUser));
     connection.on("AddFriend", addFriend(user, setUser));
     connection.on("DeleteFriend", deleteFriend(user, setUser));
-    connection.on("JoinConversation", () => {});
+    connection.on("JoinConversation", joinConversation(user, setUser));
   };
 
   const removeSingalrListeners = () => {
