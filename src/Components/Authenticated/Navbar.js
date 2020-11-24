@@ -10,6 +10,7 @@ import Menu from "@material-ui/core/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import HomeIcon from "@material-ui/icons/Home";
+import MoreIcon from "@material-ui/icons/MoreVert";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
@@ -84,6 +85,9 @@ const Navbar = ({ notificationsNumber, logout, handleHomeRedirect }) => {
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -199,10 +203,10 @@ const Navbar = ({ notificationsNumber, logout, handleHomeRedirect }) => {
               aria-label="show more"
               aria-controls={mobileMenuId}
               aria-haspopup="true"
-              onClick={handleHomeRedirect}
+              onClick={handleMobileMenuOpen}
               color="inherit"
             >
-              <HomeIcon />
+              <MoreIcon />
             </IconButton>
           </div>
         </Toolbar>
