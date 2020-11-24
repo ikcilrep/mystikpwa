@@ -25,7 +25,7 @@ const verifyPassword = async (password, saltMaterial, hash) => {
     return false;
   }
 
-  for (let i =0; i< hashedPassword.length; i++) {
+  for (let i = 0; i < hashedPassword.length; i++) {
     if (hashedPassword[i] !== decodedHash[i]) {
       return false;
     }
@@ -33,4 +33,8 @@ const verifyPassword = async (password, saltMaterial, hash) => {
   return true;
 };
 
-export { hashPassword, verifyPassword };
+const deriveKey = async (password, saltMaterial) => {
+  return hashPassword(password, saltMaterial);
+};
+
+export { hashPassword, verifyPassword, deriveKey };
