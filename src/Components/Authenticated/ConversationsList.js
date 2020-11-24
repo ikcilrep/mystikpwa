@@ -30,7 +30,7 @@ const ConversationsList = ({ user, conversations, setRedirectPath }) => {
       <h1>Hello, {user.nickname}!</h1>
       <List>
         {conversations.map((c) => (
-          <ConversationItem conversation={c} />
+          <ConversationItem conversation={c} key={c.id} />
         ))}
       </List>
       <Fab
