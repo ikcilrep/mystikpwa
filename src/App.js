@@ -8,7 +8,7 @@ import purple from "@material-ui/core/colors/purple";
 import { ThemeProvider } from "@material-ui/styles";
 import updateUser from "./Helpers/UserUpdating";
 import { serverAddress } from "./settings.json";
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import ConversationCreator from "./Components/Authenticated/ConversationCreator";
 import {
   receiveInvitation,
@@ -81,6 +81,7 @@ function App() {
     connection.on("DeleteInvitation", deleteInvitation(user, setUser));
     connection.on("AddFriend", addFriend(user, setUser));
     connection.on("DeleteFriend", deleteFriend(user, setUser));
+    connection.on("JoinConversation", () => {});
   };
 
   const removeSingalrListeners = () => {
@@ -88,6 +89,7 @@ function App() {
     connection.off("DeleteInvitation");
     connection.off("AddFriend");
     connection.off("DeleteFriend");
+    connection.off("JoinConversation");
   };
 
   useEffect(() => {
@@ -96,7 +98,7 @@ function App() {
         .withUrl(`${serverAddress}/chat`, {
           accessTokenFactory: () => user.token,
         })
-        //        .configureLogging(LogLevel.Trace)
+        .configureLogging(LogLevel.Trace)
         .build();
       addSignalrListeners(connection);
       connection.start().then(() => {
@@ -120,6 +122,7 @@ function App() {
               <ConversationCreator
                 user={user}
                 isAuthenticated={isAuthenticated}
+                connection={connection}
               />
             </Route>
             <Route path="/authenticate">

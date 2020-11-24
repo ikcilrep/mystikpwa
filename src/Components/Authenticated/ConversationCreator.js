@@ -13,8 +13,9 @@ import Navbar from "./Navbar";
 import LoadingPage from "./LoadingPage";
 import { validateRepeatedPassword } from "../../Helpers/Validation";
 import DoneIcon from "@material-ui/icons/Done";
+import { hashPassword } from "../../Helpers/Security";
 
-const ConversationCreator = ({ user, isAuthenticated, logout }) => {
+const ConversationCreator = ({ user, isAuthenticated, logout, connection }) => {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,36 +25,36 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     message: "",
   });
 
-  const [invitedFriends, setInvitedFriends] = useState(undefined);
+  const [friends, setFriends] = useState(undefined);
   const [redirectPath, setRedirectPath] = useState(undefined);
 
   const setInviteFriend = (friendId, doInvite) => {
-    const invitedFriendsCopy = { ...invitedFriends };
+    const invitedFriendsCopy = { ...friends };
     invitedFriendsCopy[friendId] = doInvite;
-    setInvitedFriends(invitedFriendsCopy);
+    setFriends(invitedFriendsCopy);
   };
 
   useEffect(() => {
     if (user !== undefined) {
       const invitedFriendsTmp = {};
-      if (invitedFriends === undefined) {
+      if (friends === undefined) {
         user.friends.forEach((friend) => {
           invitedFriendsTmp[friend.id] = false;
         });
       } else {
         user.friends
-          .filter((f) => !(f.id in invitedFriends))
+          .filter((f) => !(f.id in friends))
           .forEach((newFriend) => {
             invitedFriendsTmp[newFriend.id] = false;
           });
 
         Object.keys(invitedFriendsTmp).forEach((friendId) => {
           if (user.friends.every((f) => f.id !== friendId))
-            delete invitedFriends[friendId];
+            delete friends[friendId];
         });
       }
 
-      setInvitedFriends(invitedFriendsTmp);
+      setFriends(invitedFriendsTmp);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
@@ -62,7 +63,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     return <Redirect to="/authenticate" />;
   }
 
-  if (user === undefined) {
+  if (user === undefined || connection === undefined) {
     return <LoadingPage />;
   }
 
@@ -90,9 +91,19 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
     name === "" ||
     password === "" ||
     validateRepeatedPassword(password, repeatedPassword).error;
+
+  const handleHomeRedirect = () => setRedirectPath("/");
+
+  const handleCreatingConversation = async () => {
+    const hash = await hashPassword(password, user.id);
+    const invitedFriendsIds = Object.keys(friends).filter((id) => friends[id]);
+    connection.invoke("CreateConversation", name, [...hash], invitedFriendsIds);
+    handleHomeRedirect();
+  };
+
   return (
     <div>
-      <Navbar logout={logout} handleHomeRedirect={() => setRedirectPath("/")} />
+      <Navbar logout={logout} handleHomeRedirect={handleHomeRedirect} />
       <center>
         <Grid container>
           <Grid item xs={12}>
@@ -149,7 +160,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
 
           <Grid item xs={5}></Grid>
           <Grid item xs={4}>
-            {invitedFriends === undefined ? (
+            {friends === undefined ? (
               <CircularProgress />
             ) : (
               <List>
@@ -158,7 +169,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
                     <ListItemIcon>
                       <Checkbox
                         edge="start"
-                        checked={invitedFriends[friend.id]}
+                        checked={friends[friend.id]}
                         onChange={(e) =>
                           setInviteFriend(friend.id, e.target.checked)
                         }
@@ -182,7 +193,7 @@ const ConversationCreator = ({ user, isAuthenticated, logout }) => {
               disabled={isThereAValidationError()}
               variant="contained"
               color="secondary"
-              onClick={() => {}}
+              onClick={handleCreatingConversation}
             >
               <DoneIcon />
             </IconButton>{" "}
