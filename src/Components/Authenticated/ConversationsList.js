@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const ConversationItem = ({ user, conversation }) => {
   const [, setPassword] = useState("");
-  const [isPasswordCorrect, setPasswordCorrect] = useState(true);
+  const [isPasswordCorrect, setPasswordCorrect] = useState(false);
 
   const onPasswordChange = async (password) => {
     const isPasswordCorrect = await verifyPassword(
@@ -45,7 +45,6 @@ const ConversationItem = ({ user, conversation }) => {
           color="secondary"
           label="Password"
           type="password"
-          error={!isPasswordCorrect}
           onChange={(e) => onPasswordChange(e.target.value)}
         />
       </ListItemSecondaryAction>
