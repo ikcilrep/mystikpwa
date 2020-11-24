@@ -17,4 +17,20 @@ const hashPassword = (password, saltMaterial) => {
   );
 };
 
-export { hashPassword };
+const verifyPassword = async (password, saltMaterial, hash) => {
+  const hashedPassword = await hashPassword(password, saltMaterial);
+  const decodedHash = Buffer.from(hash, "base64");
+
+  if (hashedPassword.length !== decodedHash.length) {
+    return false;
+  }
+
+  for (let i =0; i< hashedPassword.length; i++) {
+    if (hashedPassword[i] !== decodedHash[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+export { hashPassword, verifyPassword };

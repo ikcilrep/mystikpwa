@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockIcon from "@material-ui/icons/Lock";
+import { verifyPassword } from "../../Helpers/Security";
 
 const useStyles = makeStyles((theme) => ({
   fab: {
@@ -13,15 +19,39 @@ const useStyles = makeStyles((theme) => ({
     right: theme.spacing(2),
   },
 }));
+const ConversationItem = ({ user, conversation }) => {
+  const [, setPassword] = useState("");
+  const [isPasswordCorrect, setPasswordCorrect] = useState(true);
 
-const ConversationItem = ({ conversation }) => {
+  const onPasswordChange = async (password) => {
+    const isPasswordCorrect = await verifyPassword(
+      password,
+      user.id,
+      conversation.passwordHashData
+    );
+    setPasswordCorrect(isPasswordCorrect);
+    setPassword(password);
+  };
+
   return (
-    <ListItem>
+    <ListItem button>
+      <ListItemIcon>
+        {isPasswordCorrect ? <LockOpenIcon /> : <LockIcon />}
+      </ListItemIcon>
       <ListItemText primary={conversation.name} />
+      <ListItemSecondaryAction>
+        <TextField
+          required
+          color="secondary"
+          label="Password"
+          type="password"
+          error={!isPasswordCorrect}
+          onChange={(e) => onPasswordChange(e.target.value)}
+        />
+      </ListItemSecondaryAction>
     </ListItem>
   );
 };
-
 const ConversationsList = ({ user, conversations, setRedirectPath }) => {
   const classes = useStyles();
 
@@ -30,7 +60,7 @@ const ConversationsList = ({ user, conversations, setRedirectPath }) => {
       <h1>Hello, {user.nickname}!</h1>
       <List>
         {conversations.map((c) => (
-          <ConversationItem conversation={c} key={c.id} />
+          <ConversationItem user={user} conversation={c} key={c.id} />
         ))}
       </List>
       <Fab
