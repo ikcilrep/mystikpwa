@@ -15,7 +15,7 @@ import {
   deleteInvitation,
   addFriend,
   deleteFriend,
-  joinConversation
+  joinConversation,
 } from "./ClientSideMethods";
 
 const theme = createMuiTheme({
@@ -71,7 +71,7 @@ function App() {
 
   const [connection, setConnection] = useState(undefined);
   useEffect(() => {
-    if (doRememberMe) {
+    if (user !== undefined && doRememberMe) {
       setCookie("user", user);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
