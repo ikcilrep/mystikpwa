@@ -27,10 +27,15 @@ const joinConversation = (user, setUser) => (conversation) => {
   User.addConversation({ conversation, user, setUser });
 };
 
+const receiveMessage = (user, setUser) => (message) => {
+  User.addMessage({ message, user, setUser });
+};
+
 export {
   receiveInvitation,
   deleteInvitation,
   addFriend,
   deleteFriend,
   joinConversation,
+  receiveMessage,
 };

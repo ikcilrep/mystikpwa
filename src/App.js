@@ -17,6 +17,7 @@ import {
   addFriend,
   deleteFriend,
   joinConversation,
+  receiveMessage
 } from "./ClientSideMethods";
 
 const theme = createMuiTheme({
@@ -86,6 +87,7 @@ function App() {
     connection.on("AddFriend", addFriend(user, setUser));
     connection.on("DeleteFriend", deleteFriend(user, setUser));
     connection.on("JoinConversation", joinConversation(user, setUser));
+    connection.on("ReceiveMessage", receiveMessage(user ,setUser));
   };
 
   const removeSingalrListeners = () => {
@@ -94,6 +96,7 @@ function App() {
     connection.off("AddFriend");
     connection.off("DeleteFriend");
     connection.off("JoinConversation");
+    connection.off("ReceiveMessage");
   };
 
   useEffect(() => {

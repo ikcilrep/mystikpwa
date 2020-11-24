@@ -10,6 +10,15 @@ const addInviter = ({ inviter, user, setUser }) => {
   setUser(userCopy);
 };
 
+const addMessage = ({ message, user, setUser }) => {
+  const userCopy = { ...user };
+  const conversation = userCopy.conversations.find(
+    (c) => c.id === message.conversationId
+  );
+  conversation.messages.push(message);
+  setUser(userCopy);
+};
+
 const addConversation = ({ conversation, user, setUser }) => {
   const userCopy = { ...user };
   userCopy.conversations.push(conversation);
@@ -55,6 +64,7 @@ const User = {
   addInvited,
   addInviter,
   addConversation,
+  addMessage,
   turnInviterIntoFriend,
   turnInvitedIntoFriend,
   deleteInvited,
