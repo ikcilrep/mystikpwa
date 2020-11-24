@@ -5,6 +5,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import { deriveKey } from "../../Helpers/Security";
+import LoadingPage from "./LoadingPage";
 
 const useStyles = makeStyles((theme) => ({
   messageInput: {
@@ -14,6 +15,27 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
   },
 }));
+
+const Message = ({ conversation, message, password }) => {
+  const [decryptedData, setDecryptedData] = useState(undefined);
+
+  const decryptMessage = async () => {
+    const key = await deriveKey(password, conversation.id);
+    const { decrypt } = await import("web-nse");
+
+    const decryptedData = decrypt(message.encryptedContent, key).toString();
+
+    setDecryptedData(decryptedData);
+  };
+
+  decryptMessage();
+
+  if (decryptedData === undefined) {
+    return <LoadingPage />;
+  }
+  return <p>{decryptedData}</p>;
+};
+
 const Chat = ({ conversation, user, password, connection }) => {
   const classes = useStyles();
   const [message, setMessage] = useState("");
@@ -25,7 +47,7 @@ const Chat = ({ conversation, user, password, connection }) => {
     const key = await deriveKey(password, conversation.id);
     const { encrypt } = await import("web-nse");
 
-    const data = Buffer.from(message);
+    const data = Buffer.from(message.normalize("NFKC"));
     const encryptedData = encrypt(data, key);
 
     connection.invoke("SendMessage", [...encryptedData], conversation.id);
@@ -35,6 +57,13 @@ const Chat = ({ conversation, user, password, connection }) => {
   return (
     <div>
       <h1>Chat!</h1>
+      {conversation.messages.map((message) => (
+        <Message
+          message={message}
+          password={password}
+          conversation={conversation}
+        />
+      ))}
       <TextField
         required
         color="secondary"
