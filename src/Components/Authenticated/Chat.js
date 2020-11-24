@@ -59,6 +59,7 @@ const Chat = ({ conversation, user, password, connection }) => {
       <h1>Chat!</h1>
       {conversation.messages.map((message) => (
         <Message
+          key={message.id}
           message={message}
           password={password}
           conversation={conversation}
