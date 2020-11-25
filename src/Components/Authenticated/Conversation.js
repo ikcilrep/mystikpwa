@@ -28,11 +28,19 @@ const Conversation = ({
       );
       if (conversationTmp !== undefined) {
         setConversation(conversationTmp);
+        verifyPassword(
+          password,
+          user.id,
+          conversationTmp.passwordHashData
+        ).then((isPasswordCorrect) => {
+          setPasswordCorrect(isPasswordCorrect);
+        });
       } else {
         handleHomeRedirect();
       }
     }
-    setPasswordCorrect(false);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, conversationId]);
 
   const handleHomeRedirect = () => setRedirectPath("/");
@@ -51,7 +59,6 @@ const Conversation = ({
     }
 
     setPasswordCorrect(isPasswordCorrect);
-    setPassword("");
   };
 
   if (!isAuthenticated) {
