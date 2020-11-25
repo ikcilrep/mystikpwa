@@ -6,6 +6,7 @@ import SendIcon from "@material-ui/icons/Send";
 import { makeStyles } from "@material-ui/core/styles";
 import { deriveKey } from "../../Helpers/Security";
 import LoadingPage from "./LoadingPage";
+import { encrypt, decrypt } from "../../Helpers/Security";
 
 const useStyles = makeStyles((theme) => ({
   messageInput: {
@@ -21,7 +22,6 @@ const Message = ({ conversation, message, password }) => {
 
   const decryptMessage = async () => {
     const key = await deriveKey(password, conversation.id);
-    const { decrypt } = await import("web-nse");
 
     const decryptedData = decrypt(message.encryptedContent, key).toString();
 
@@ -45,10 +45,8 @@ const Chat = ({ conversation, user, password, connection }) => {
 
   const handleSendingMessage = async () => {
     const key = await deriveKey(password, conversation.id);
-    const { encrypt } = await import("web-nse");
 
-    const data = Buffer.from(message.normalize("NFKC"));
-    const encryptedData = encrypt(data, key);
+    const encryptedData = encrypt(message, key);
 
     connection.invoke("SendMessage", [...encryptedData], conversation.id);
     setMessage("");

@@ -1,5 +1,6 @@
 import scrypt from "scrypt-js";
 import { Buffer } from "buffer";
+import aesjs from "aes-js";
 
 const hashPassword = (password, saltMaterial) => {
   const salt = Buffer.from(saltMaterial.normalize("NFKC"));
@@ -37,4 +38,18 @@ const deriveKey = async (password, saltMaterial) => {
   return hashPassword(password, saltMaterial);
 };
 
-export { hashPassword, verifyPassword, deriveKey };
+const encrypt = (data, key) => {
+  const aesCtr = new aesjs.ModeOfOperation.ctr(key);
+  const dataBytes = aesjs.utils.utf8.toBytes(data.normalize("NFKC"));
+  const encryptedBytes = aesCtr.encrypt(dataBytes);
+  return [...encryptedBytes];
+};
+
+const decrypt = (encryptedData, key) => {
+  const aesCtr = new aesjs.ModeOfOperation.ctr(key);
+  const decodedEncryptedData = Buffer.from(encryptedData, "base64");
+  const dataBytes = aesCtr.decrypt(decodedEncryptedData);
+  return aesjs.utils.utf8.fromBytes(dataBytes);
+};
+
+export { hashPassword, verifyPassword, deriveKey, encrypt, decrypt };
